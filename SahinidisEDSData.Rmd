@@ -1,0 +1,105 @@
+f---
+title: "myprezdata"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+setwd("/Users/alex/Desktop/fpeds_alex")
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(gridExtra)
+
+```
+
+
+The following code below is used for my own reference to pull the correct timeframes from online.
+```{r cars}
+electionDates <- c("1980-11-4", "1984-11-6", "1988-11-8", "1992-11-3", "1996-11-5", "2000-11-7", "2004-11-2", "2008-11-4", "2012-11-6", "2016-11-8")
+initData <- as.Date(electionDates) - 90 # this is the date that we will begin tracking the market (also the date that is 3 months before the election for that corresponding year). we will track for a month after the election date.
+postData <- as.Date(electionDates) + 30
+initData
+postData
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+
+
+returnsOverTime1980 <- read_excel("electionsp500.xlsx", sheet = "1980")
+returnsOverTime1984 <- read_excel("electionsp500.xlsx", sheet = "1984")
+returnsOverTime1988 <- read_excel("electionsp500.xlsx", sheet = "1988")
+returnsOverTime1992 <- read_excel("electionsp500.xlsx", sheet = "1992")
+returnsOverTime1996 <- read_excel("electionsp500.xlsx", sheet = "1996")
+returnsOverTime2000 <- read_excel("electionsp500.xlsx", sheet = "2000")
+returnsOverTime2004 <- read_excel("electionsp500.xlsx", sheet = "2004")
+returnsOverTime2008 <- read_excel("electionsp500.xlsx", sheet = "2008")
+returnsOverTime2012 <- read_excel("electionsp500.xlsx", sheet = "2012")
+returnsOverTime2016 <- read_excel("electionsp500.xlsx", sheet = "2016")
+
+winners <- c("1980R", "1984R", "1988R", "1992D", "1996D", "2000R", "2004R", "2008D", "2012D", "2016R" )
+
+#Graphs
+graphOfReturns1980 <- ggplot(data = returnsOverTime1980, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns1984 <- ggplot(data = returnsOverTime1984, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns1988 <- ggplot(data = returnsOverTime1988, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns1992 <- ggplot(data = returnsOverTime1992, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns1996 <- ggplot(data = returnsOverTime1996, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns2000 <- ggplot(data = returnsOverTime2000, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns2004 <- ggplot(data = returnsOverTime2004, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns2008 <- ggplot(data = returnsOverTime2008, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns2012 <- ggplot(data = returnsOverTime2012, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns2016 <- ggplot(data = returnsOverTime2016, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+
+graphOfReturns1980
+graphOfReturns1984
+graphOfReturns1988
+graphOfReturns1992
+graphOfReturns1996
+graphOfReturns2000
+graphOfReturns2004
+graphOfReturns2008
+graphOfReturns2012
+graphOfReturns2016
+```
+
+```{r}
+#Linear Models
+linear1980 <- lm(return ~ dateNum, data = returnsOverTime1980)
+linear1984 <- lm(return ~ dateNum, data = returnsOverTime1984)
+linear1988 <- lm(return ~ dateNum, data = returnsOverTime1988)
+linear1992 <- lm(return ~ dateNum, data = returnsOverTime1992)
+linear1996 <- lm(return ~ dateNum, data = returnsOverTime1996)
+linear2000 <- lm(return ~ dateNum, data = returnsOverTime2000)
+
+
+
+
+summary(linear1980)
+coefficients(linear1980)[2] * 100 * 30
+coefficients(linear1984)[2] * 100 * 30
+coefficients(linear1988)[2] * 100 * 30
+coefficients(linear1992)[2] * 100 * 30
+coefficients(linear1996)[2] * 100 * 30
+coefficients(linear2000)[2] * 100 * 30
+
+
+
+
+
+```
+
+```{r}
+winners <- c("1980R", "1984R", "1988R", "1992D", "1996D", "2000R", "2004R", "2008D", "2012D", "2016R" )
+```
+## Including Plots
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
