@@ -31,72 +31,331 @@ postData
 ```{r}
 par(mfrow=c(2,2))
 
+market2000 <- read_excel("electionsp500.xlsx", sheet = "2000")
+market2004 <- read_excel("electionsp500.xlsx", sheet = "2004")
+market2008 <- read_excel("electionsp500.xlsx", sheet = "2008")
+market2012 <- read_excel("electionsp500.xlsx", sheet = "2012")
+market2016 <- read_excel("electionsp500.xlsx", sheet = "2016")
 
-returnsOverTime1980 <- read_excel("electionsp500.xlsx", sheet = "1980")
-returnsOverTime1984 <- read_excel("electionsp500.xlsx", sheet = "1984")
-returnsOverTime1988 <- read_excel("electionsp500.xlsx", sheet = "1988")
-returnsOverTime1992 <- read_excel("electionsp500.xlsx", sheet = "1992")
-returnsOverTime1996 <- read_excel("electionsp500.xlsx", sheet = "1996")
-returnsOverTime2000 <- read_excel("electionsp500.xlsx", sheet = "2000")
-returnsOverTime2004 <- read_excel("electionsp500.xlsx", sheet = "2004")
-returnsOverTime2008 <- read_excel("electionsp500.xlsx", sheet = "2008")
-returnsOverTime2012 <- read_excel("electionsp500.xlsx", sheet = "2012")
-returnsOverTime2016 <- read_excel("electionsp500.xlsx", sheet = "2016")
 
-winners <- c("1980R", "1984R", "1988R", "1992D", "1996D", "2000R", "2004R", "2008D", "2012D", "2016R" )
+winners <- c("2000R", "2004R", "2008D", "2012D", "2016R" )
 
 #Graphs
-graphOfReturns1980 <- ggplot(data = returnsOverTime1980, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-graphOfReturns1984 <- ggplot(data = returnsOverTime1984, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-graphOfReturns1988 <- ggplot(data = returnsOverTime1988, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-graphOfReturns1992 <- ggplot(data = returnsOverTime1992, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-graphOfReturns1996 <- ggplot(data = returnsOverTime1996, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-graphOfReturns2000 <- ggplot(data = returnsOverTime2000, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-graphOfReturns2004 <- ggplot(data = returnsOverTime2004, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-graphOfReturns2008 <- ggplot(data = returnsOverTime2008, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-graphOfReturns2012 <- ggplot(data = returnsOverTime2012, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-graphOfReturns2016 <- ggplot(data = returnsOverTime2016, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
 
-graphOfReturns1980
-graphOfReturns1984
-graphOfReturns1988
-graphOfReturns1992
-graphOfReturns1996
+graphOfReturns2000 <- ggplot(data = market2000, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns2004 <- ggplot(data = market2004, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+graphOfReturns2008 <- ggplot(data = market2008, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns2012 <- ggplot(data = market2012, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
+graphOfReturns2016 <- ggplot(data = market2016, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+
 graphOfReturns2000
 graphOfReturns2004
 graphOfReturns2008
 graphOfReturns2012
 graphOfReturns2016
 ```
+```{r}
+#Data for each industry, each election
+consumerGoods2000 <- read_excel("consumerGoodsReturns.xlsx", sheet = "2000")
+consumerGoods2004 <- read_excel("consumerGoodsReturns.xlsx", sheet = "2004")
+consumerGoods2008 <- read_excel("consumerGoodsReturns.xlsx", sheet = "2008")
+consumerGoods2012 <- read_excel("consumerGoodsReturns.xlsx", sheet = "2012")
+consumerGoods2016 <- read_excel("consumerGoodsReturns.xlsx", sheet = "2016")
+
+realEstate2000 <- read_excel("realEstateReturns.xlsx", sheet = "2000")
+realEstate2004 <- read_excel("realEstateReturns.xlsx", sheet = "2004")
+realEstate2008 <- read_excel("realEstateReturns.xlsx", sheet = "2008")
+realEstate2012 <- read_excel("realEstateReturns.xlsx", sheet = "2012")
+realEstate2016 <- read_excel("realEstateReturns.xlsx", sheet = "2016")
+
+telecommunications2000 <- read_excel("telecommunicationsReturns.xlsx", sheet = "2000")
+telecommunications2004 <- read_excel("telecommunicationsReturns.xlsx", sheet = "2004")
+telecommunications2008 <- read_excel("telecommunicationsReturns.xlsx", sheet = "2008")
+telecommunications2012 <- read_excel("telecommunicationsReturns.xlsx", sheet = "2012")
+telecommunications2016 <- read_excel("telecommunicationsReturns.xlsx", sheet = "2016")
+
+utilities2000 <- read_excel("utilitiesReturns.xlsx", sheet = "2000")
+utilities2004 <- read_excel("utilitiesReturns.xlsx", sheet = "2004")
+utilities2008 <- read_excel("utilitiesReturns.xlsx", sheet = "2008")
+utilities2012 <- read_excel("utilitiesReturns.xlsx", sheet = "2012")
+utilities2016 <- read_excel("utilitiesReturns.xlsx", sheet = "2016")
+
+technology2000 <- read_excel("technologyReturns.xlsx", sheet = "2000")
+technology2004 <- read_excel("technologyReturns.xlsx", sheet = "2004")
+technology2008 <- read_excel("technologyReturns.xlsx", sheet = "2008")
+technology2012 <- read_excel("technologyReturns.xlsx", sheet = "2012")
+technology2016 <- read_excel("technologyReturns.xlsx", sheet = "2016")
+
+industrial2000 <- read_excel("industrialReturns.xlsx", sheet = "2000")
+industrial2004 <- read_excel("industrialReturns.xlsx", sheet = "2004")
+industrial2008 <- read_excel("industrialReturns.xlsx", sheet = "2008")
+industrial2012 <- read_excel("industrialReturns.xlsx", sheet = "2012")
+industrial2016 <- read_excel("industrialReturns.xlsx", sheet = "2016")
+
+financial2000 <- read_excel("financialReturns.xlsx", sheet = "2000")
+financial2004 <- read_excel("financialReturns.xlsx", sheet = "2004")
+financial2008 <- read_excel("financialReturns.xlsx", sheet = "2008")
+financial2012 <- read_excel("financialReturns.xlsx", sheet = "2012")
+financial2016 <- read_excel("financialReturns.xlsx", sheet = "2016")
+
+energy2000 <- read_excel("energyReturns.xlsx", sheet = "2000")
+energy2004 <- read_excel("energyReturns.xlsx", sheet = "2004")
+energy2008 <- read_excel("energyReturns.xlsx", sheet = "2008")
+energy2012 <- read_excel("energyReturns.xlsx", sheet = "2012")
+energy2016 <- read_excel("energyReturns.xlsx", sheet = "2016")
+
+consumerDiscretionary2000 <- read_excel("consumerDiscretionaryReturns.xlsx", sheet = "2000")
+consumerDiscretionary2004 <- read_excel("consumerDiscretionaryReturns.xlsx", sheet = "2004")
+consumerDiscretionary2008 <- read_excel("consumerDiscretionaryReturns.xlsx", sheet = "2008")
+consumerDiscretionary2012 <- read_excel("consumerDiscretionaryReturns.xlsx", sheet = "2012")
+consumerDiscretionary2016 <- read_excel("consumerDiscretionaryReturns.xlsx", sheet = "2016")
+
+healthCare2000 <- read_excel("healthCareReturns.xlsx", sheet = "2000")
+healthCare2004 <- read_excel("healthCareReturns.xlsx", sheet = "2004")
+healthCare2008 <- read_excel("healthCareReturns.xlsx", sheet = "2008")
+healthCare2012 <- read_excel("healthCareReturns.xlsx", sheet = "2012")
+healthCare2016 <- read_excel("healthCareReturns.xlsx", sheet = "2016")
+
+materials2000 <- read_excel("materialsReturns.xlsx", sheet = "2000")
+materials2004 <- read_excel("materialsReturns.xlsx", sheet = "2004")
+materials2008 <- read_excel("materialsReturns.xlsx", sheet = "2008")
+materials2012 <- read_excel("materialsReturns.xlsx", sheet = "2012")
+materials2016 <- read_excel("materialsReturns.xlsx", sheet = "2016")
+```
+
 
 ```{r}
-#Linear Models
-linear1980 <- lm(return ~ dateNum, data = returnsOverTime1980)
-linear1984 <- lm(return ~ dateNum, data = returnsOverTime1984)
-linear1988 <- lm(return ~ dateNum, data = returnsOverTime1988)
-linear1992 <- lm(return ~ dateNum, data = returnsOverTime1992)
-linear1996 <- lm(return ~ dateNum, data = returnsOverTime1996)
-linear2000 <- lm(return ~ dateNum, data = returnsOverTime2000)
+# Pearson correlations for each industry, each election
+correl_consumerGoods2000 <- cor.test(consumerGoods2000$return, market2000$return, method = "pearson")$estimate
+correl_consumerGoods2004 <- cor.test(consumerGoods2004$return, market2004$return, method = "pearson")$estimate
+correl_consumerGoods2008 <- cor.test(consumerGoods2008$return, market2008$return, method = "pearson")$estimate
+correl_consumerGoods2012 <- cor.test(consumerGoods2012$return, market2012$return, method = "pearson")$estimate
+correl_consumerGoods2016 <- cor.test(consumerGoods2016$return, market2016$return, method = "pearson")$estimate
+
+correl_realEstate2000 <- cor.test(realEstate2000$return, market2000$return, method = "pearson")$estimate
+correl_realEstate2004 <- cor.test(realEstate2004$return, market2004$return, method = "pearson")$estimate
+correl_realEstate2008 <- cor.test(realEstate2008$return, market2008$return, method = "pearson")$estimate
+correl_realEstate2012 <- cor.test(realEstate2012$return, market2012$return, method = "pearson")$estimate
+correl_realEstate2016 <- cor.test(realEstate2016$return, market2016$return, method = "pearson")$estimate
+
+correl_telecommunications2000 <- cor.test(telecommunications2000$return, market2000$return, method = "pearson")$estimate
+correl_telecommunications2004 <- cor.test(telecommunications2004$return, market2004$return, method = "pearson")$estimate
+correl_telecommunications2008 <- cor.test(telecommunications2008$return, market2008$return, method = "pearson")$estimate
+correl_telecommunications2012 <- cor.test(telecommunications2012$return, market2012$return, method = "pearson")$estimate
+correl_telecommunications2016 <- cor.test(telecommunications2016$return, market2016$return, method = "pearson")$estimate
+
+correl_utilities2000 <- cor.test(utilities2000$return, market2000$return, method = "pearson")$estimate
+correl_utilities2004 <- cor.test(utilities2004$return, market2004$return, method = "pearson")$estimate
+correl_utilities2008 <- cor.test(utilities2008$return, market2008$return, method = "pearson")$estimate
+correl_utilities2012 <- cor.test(utilities2012$return, market2012$return, method = "pearson")$estimate
+correl_utilities2016 <- cor.test(utilities2016$return, market2016$return, method = "pearson")$estimate
+
+correl_technology2000 <- cor.test(technology2000$return, market2000$return, method = "pearson")$estimate
+correl_technology2004 <- cor.test(technology2004$return, market2004$return, method = "pearson")$estimate
+correl_technology2008 <- cor.test(technology2008$return, market2008$return, method = "pearson")$estimate
+correl_technology2012 <- cor.test(technology2012$return, market2012$return, method = "pearson")$estimate
+correl_technology2016 <- cor.test(technology2016$return, market2016$return, method = "pearson")$estimate
+
+correl_industrial2000 <- cor.test(industrial2000$return, market2000$return, method = "pearson")$estimate
+correl_industrial2004 <- cor.test(industrial2004$return, market2004$return, method = "pearson")$estimate
+correl_industrial2008 <- cor.test(industrial2008$return, market2008$return, method = "pearson")$estimate
+correl_industrial2012 <- cor.test(industrial2012$return, market2012$return, method = "pearson")$estimate
+correl_industrial2016 <- cor.test(industrial2016$return, market2016$return, method = "pearson")$estimate
+
+correl_financial2000 <- cor.test(financial2000$return, market2000$return, method = "pearson")$estimate
+correl_financial2004 <- cor.test(financial2004$return, market2004$return, method = "pearson")$estimate
+correl_financial2008 <- cor.test(financial2008$return, market2008$return, method = "pearson")$estimate
+correl_financial2012 <- cor.test(financial2012$return, market2012$return, method = "pearson")$estimate
+correl_financial2016 <- cor.test(financial2016$return, market2016$return, method = "pearson")$estimate
+
+correl_energy2000 <- cor.test(energy2000$return, market2000$return, method = "pearson")$estimate
+correl_energy2004 <- cor.test(energy2004$return, market2004$return, method = "pearson")$estimate
+correl_energy2008 <- cor.test(energy2008$return, market2008$return, method = "pearson")$estimate
+correl_energy2012 <- cor.test(energy2012$return, market2012$return, method = "pearson")$estimate
+correl_energy2016 <- cor.test(energy2016$return, market2016$return, method = "pearson")$estimate
+
+correl_consumerDiscretionary2000 <- cor.test(consumerDiscretionary2000$return, market2000$return, method = "pearson")$estimate
+correl_consumerDiscretionary2004 <- cor.test(consumerDiscretionary2004$return, market2004$return, method = "pearson")$estimate
+correl_consumerDiscretionary2008 <- cor.test(consumerDiscretionary2008$return, market2008$return, method = "pearson")$estimate
+correl_consumerDiscretionary2012 <- cor.test(consumerDiscretionary2012$return, market2012$return, method = "pearson")$estimate
+correl_consumerDiscretionary2016 <- cor.test(consumerDiscretionary2016$return, market2016$return, method = "pearson")$estimate
+
+correl_healthCare2000 <- cor.test(healthCare2000$return, market2000$return, method = "pearson")$estimate
+correl_healthCare2004 <- cor.test(healthCare2004$return, market2004$return, method = "pearson")$estimate
+correl_healthCare2008 <- cor.test(healthCare2008$return, market2008$return, method = "pearson")$estimate
+correl_healthCare2012 <- cor.test(healthCare2012$return, market2012$return, method = "pearson")$estimate
+correl_healthCare2016 <- cor.test(healthCare2016$return, market2016$return, method = "pearson")$estimate
+
+correl_materials2000 <- cor.test(materials2000$return, market2000$return, method = "pearson")$estimate
+correl_materials2004 <- cor.test(materials2004$return, market2004$return, method = "pearson")$estimate
+correl_materials2008 <- cor.test(materials2008$return, market2008$return, method = "pearson")$estimate
+correl_materials2012 <- cor.test(materials2012$return, market2012$return, method = "pearson")$estimate
+correl_materials2016 <- cor.test(materials2016$return, market2016$return, method = "pearson")$estimate
+
+# Standard deviation for each industry, each election
+
+sd_consumerGoods2000 <- sd(consumerGoods2000$return)
+sd_consumerGoods2004 <- sd(consumerGoods2004$return)
+sd_consumerGoods2008 <- sd(consumerGoods2008$return)
+sd_consumerGoods2012 <- sd(consumerGoods2012$return)
+sd_consumerGoods2016 <- sd(consumerGoods2016$return)
+
+sd_realEstate2000 <- sd(realEstate2000$return)
+sd_realEstate2004 <- sd(realEstate2004$return)
+sd_realEstate2008 <- sd(realEstate2008$return)
+sd_realEstate2012 <- sd(realEstate2012$return)
+sd_realEstate2016 <- sd(realEstate2016$return)
+
+sd_telecommunications2000 <- sd(telecommunications2000$return)
+sd_telecommunications2004 <- sd(telecommunications2004$return)
+sd_telecommunications2008 <- sd(telecommunications2008$return)
+sd_telecommunications2012 <- sd(telecommunications2012$return)
+sd_telecommunications2016 <- sd(telecommunications2016$return)
+
+sd_utilities2000 <- sd(utilities2000$return)
+sd_utilities2004 <- sd(utilities2004$return)
+sd_utilities2008 <- sd(utilities2008$return)
+sd_utilities2012 <- sd(utilities2012$return)
+sd_utilities2016 <- sd(utilities2016$return)
+
+sd_technology2000 <- sd(technology2000$return)
+sd_technology2004 <- sd(technology2004$return)
+sd_technology2008 <- sd(technology2008$return)
+sd_technology2012 <- sd(technology2012$return)
+sd_technology2016 <- sd(technology2016$return)
+
+sd_industrial2000 <- sd(industrial2000$return)
+sd_industrial2004 <- sd(industrial2004$return)
+sd_industrial2008 <- sd(industrial2008$return)
+sd_industrial2012 <- sd(industrial2012$return)
+sd_industrial2016 <- sd(industrial2016$return)
+
+sd_financial2000 <- sd(financial2000$return)
+sd_financial2004 <- sd(financial2004$return)
+sd_financial2008 <- sd(financial2008$return)
+sd_financial2012 <- sd(financial2012$return)
+sd_financial2016 <- sd(financial2016$return)
+
+sd_energy2000 <- sd(energy2000$return)
+sd_energy2004 <- sd(energy2004$return)
+sd_energy2008 <- sd(energy2008$return)
+sd_energy2012 <- sd(energy2012$return)
+sd_energy2016 <- sd(energy2016$return)
+
+sd_consumerDiscretionary2000 <- sd(consumerDiscretionary2000$return)
+sd_consumerDiscretionary2004 <- sd(consumerDiscretionary2004$return)
+sd_consumerDiscretionary2008 <- sd(consumerDiscretionary2008$return)
+sd_consumerDiscretionary2012 <- sd(consumerDiscretionary2012$return)
+sd_consumerDiscretionary2016 <- sd(consumerDiscretionary2016$return)
+
+sd_healthCare2000 <- sd(healthCare2000$return)
+sd_healthCare2004 <- sd(healthCare2004$return)
+sd_healthCare2008 <- sd(healthCare2008$return)
+sd_healthCare2012 <- sd(healthCare2012$return)
+sd_healthCare2016 <- sd(healthCare2016$return)
+
+sd_materials2000 <- sd(materials2000$return)
+sd_materials2004 <- sd(materials2004$return)
+sd_materials2008 <- sd(materials2008$return)
+sd_materials2012 <- sd(materials2012$return)
+sd_materials2016 <- sd(materials2016$return)
+
+# Standard deviation of overall market, each election
+
+sd_market2000 <- sd(market2000$return)
+sd_market2004 <- sd(market2004$return)
+sd_market2008 <- sd(market2008$return)
+sd_market2012 <- sd(market2012$return)
+sd_market2016 <- sd(market2016$return)
+```
+
+```{r}
+# Beta calculations: correlation of sector with market * (sd of sector / sd of market)
+
+beta_consumerGoods2000 <- correl_consumerGoods2000 * sd_consumerGoods2000 / sd_market2000
+beta_consumerGoods2004 <- correl_consumerGoods2004 * sd_consumerGoods2004 / sd_market2004
+beta_consumerGoods2008 <- correl_consumerGoods2008 * sd_consumerGoods2008 / sd_market2008
+beta_consumerGoods2012 <- correl_consumerGoods2012 * sd_consumerGoods2012 / sd_market2012
+beta_consumerGoods2016 <- correl_consumerGoods2016 * sd_consumerGoods2016 / sd_market2016
+
+beta_realEstate2000 <- correl_realEstate2000 * sd_realEstate2000 / sd_market2000
+beta_realEstate2004 <- correl_realEstate2004 * sd_realEstate2004 / sd_market2004
+beta_realEstate2008 <- correl_realEstate2008 * sd_realEstate2008 / sd_market2008
+beta_realEstate2012 <- correl_realEstate2012 * sd_realEstate2012 / sd_market2012
+beta_realEstate2016 <- correl_realEstate2016 * sd_realEstate2016 / sd_market2016
+
+beta_telecommunications2000 <- correl_telecommunications2000 * sd_telecommunications2000 / sd_market2000
+beta_telecommunications2004 <- correl_telecommunications2004 * sd_telecommunications2004 / sd_market2004
+beta_telecommunications2008 <- correl_telecommunications2008 * sd_telecommunications2008 / sd_market2008
+beta_telecommunications2012 <- correl_telecommunications2012 * sd_telecommunications2012 / sd_market2012
+beta_telecommunications2016 <- correl_telecommunications2016 * sd_telecommunications2016 / sd_market2016
+
+beta_utilities2000 <- correl_utilities2000 * sd_utilities2000 / sd_market2000
+beta_utilities2004 <- correl_utilities2004 * sd_utilities2004 / sd_market2004
+beta_utilities2008 <- correl_utilities2008 * sd_utilities2008 / sd_market2008
+beta_utilities2012 <- correl_utilities2012 * sd_utilities2012 / sd_market2012
+beta_utilities2016 <- correl_utilities2016 * sd_utilities2016 / sd_market2016
+
+beta_technology2000 <- correl_technology2000 * sd_technology2000 / sd_market2000
+beta_technology2004 <- correl_technology2004 * sd_technology2004 / sd_market2004
+beta_technology2008 <- correl_technology2008 * sd_technology2008 / sd_market2008
+beta_technology2012 <- correl_technology2012 * sd_technology2012 / sd_market2012
+beta_technology2016 <- correl_technology2016 * sd_technology2016 / sd_market2016
+
+beta_industrial2000 <- correl_industrial2000 * sd_industrial2000 / sd_market2000
+beta_industrial2004 <- correl_industrial2004 * sd_industrial2004 / sd_market2004
+beta_industrial2008 <- correl_industrial2008 * sd_industrial2008 / sd_market2008
+beta_industrial2012 <- correl_industrial2012 * sd_industrial2012 / sd_market2012
+beta_industrial2016 <- correl_industrial2016 * sd_industrial2016 / sd_market2016
+
+beta_financial2000 <- correl_financial2000 * sd_financial2000 / sd_market2000
+beta_financial2004 <- correl_financial2004 * sd_financial2004 / sd_market2004
+beta_financial2008 <- correl_financial2008 * sd_financial2008 / sd_market2008
+beta_financial2012 <- correl_financial2012 * sd_financial2012 / sd_market2012
+beta_financial2016 <- correl_financial2016 * sd_financial2016 / sd_market2016
+
+beta_energy2000 <- correl_energy2000 * sd_energy2000 / sd_market2000
+beta_energy2004 <- correl_energy2004 * sd_energy2004 / sd_market2004
+beta_energy2008 <- correl_energy2008 * sd_energy2008 / sd_market2008
+beta_energy2012 <- correl_energy2012 * sd_energy2012 / sd_market2012
+beta_energy2016 <- correl_energy2016 * sd_energy2016 / sd_market2016
+
+beta_consumerDiscretionary2000 <- correl_consumerDiscretionary2000 * sd_consumerDiscretionary2000 / sd_market2000
+beta_consumerDiscretionary2004 <- correl_consumerDiscretionary2004 * sd_consumerDiscretionary2004 / sd_market2004
+beta_consumerDiscretionary2008 <- correl_consumerDiscretionary2008 * sd_consumerDiscretionary2008 / sd_market2008
+beta_consumerDiscretionary2012 <- correl_consumerDiscretionary2012 * sd_consumerDiscretionary2012 / sd_market2012
+beta_consumerDiscretionary2016 <- correl_consumerDiscretionary2016 * sd_consumerDiscretionary2016 / sd_market2016
+
+beta_healthCare2000 <- correl_healthCare2000 * sd_healthCare2000 / sd_market2000
+beta_healthCare2004 <- correl_healthCare2004 * sd_healthCare2004 / sd_market2004
+beta_healthCare2008 <- correl_healthCare2008 * sd_healthCare2008 / sd_market2008
+beta_healthCare2012 <- correl_healthCare2012 * sd_healthCare2012 / sd_market2012
+beta_healthCare2016 <- correl_healthCare2016 * sd_healthCare2016 / sd_market2016
+
+beta_materials2000 <- correl_materials2000 * sd_materials2000 / sd_market2000
+beta_materials2004 <- correl_materials2004 * sd_materials2004 / sd_market2004
+beta_materials2008 <- correl_materials2008 * sd_materials2008 / sd_market2008
+beta_materials2012 <- correl_materials2012 * sd_materials2012 / sd_market2012
+beta_materials2016 <- correl_materials2016 * sd_materials2016 / sd_market2016
+```
+
+```{r}
+#create vectors of each year, colors and dots and line
+# Graph of Beta for each industry as a function of time (elections)
+betas2000column <- c(beta_consumerGoods2000, beta_realEstate2000, beta_telecommunications2000, beta_utilities2000, beta_technology2000, beta_industrial2000, beta_financial2000, beta_energy2000, beta_consumerDiscretionary2000, beta_healthCare2000, beta_materials2000)
 
 
-
-
-summary(linear1980)
-coefficients(linear1980)[2] * 100 * 30
-coefficients(linear1984)[2] * 100 * 30
-coefficients(linear1988)[2] * 100 * 30
-coefficients(linear1992)[2] * 100 * 30
-coefficients(linear1996)[2] * 100 * 30
-coefficients(linear2000)[2] * 100 * 30
-
-
-
-
+betas2000column
+#betas2000 <- ggplot(data = betas2000column, aes(x = date, y = beta)) + geom_smooth(method=lm, color = "red")
 
 ```
 
 ```{r}
 winners <- c("1980R", "1984R", "1988R", "1992D", "1996D", "2000R", "2004R", "2008D", "2012D", "2016R" )
+```
+
+```{r}
+
 ```
 ## Including Plots
 
