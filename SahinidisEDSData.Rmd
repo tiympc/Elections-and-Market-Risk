@@ -13,6 +13,7 @@ setwd("/Users/alex/Desktop/fpeds_alex")
 library(tidyverse)
 library(readxl)
 library(ggplot2)
+library(ggthemes)
 library(gridExtra)
 
 ```
@@ -341,11 +342,32 @@ beta_materials2016 <- correl_materials2016 * sd_materials2016 / sd_market2016
 
 ```{r}
 #create vectors of each year, colors and dots and line
+# Graph of all Betas as a function of time (elections)
+#betas2000column <- c(beta_consumerGoods2000, beta_realEstate2000, beta_telecommunications2000, beta_utilities2000, #beta_technology2000, beta_industrial2000, beta_financial2000, beta_energy2000, beta_consumerDiscretionary2000, #beta_healthCare2000, beta_materials2000)
+
 # Graph of Beta for each industry as a function of time (elections)
-betas2000column <- c(beta_consumerGoods2000, beta_realEstate2000, beta_telecommunications2000, beta_utilities2000, beta_technology2000, beta_industrial2000, beta_financial2000, beta_energy2000, beta_consumerDiscretionary2000, beta_healthCare2000, beta_materials2000)
+electionYears <- c("2000", "2004", "2008", "2012", "2016")
+values_consumerGoodsBeta <- c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2008, beta_consumerGoods2012, beta_consumerGoods2016)
 
+betas_consumerGoods <- data.frame(electionYears, values_consumerGoodsBeta)
+betas_consumerGoods
+mid = 0
+betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = electionYears, y = values_consumerGoodsBeta, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_consumerGoodsBeta), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-1,0,1), labels=c("Market Risk (-1)","No Market Risk (0)","Market Risk (1)"), limits=c(-1,1), name = "") +
+  scale_y_continuous(limits=c(-1.5, 1.5)) +
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the consumer goods sector, as represented by Beta", subtitle = "(tracked 90 days before and 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+  
+betasPlot_consumerGoods
 
-betas2000column
+#betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = ))
+#betas2000column
 #betas2000 <- ggplot(data = betas2000column, aes(x = date, y = beta)) + geom_smooth(method=lm, color = "red")
 
 ```
