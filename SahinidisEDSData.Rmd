@@ -551,13 +551,17 @@ betasPlot_aggregate <- ggplot(data = betas_aggregate, aes(x = electionYears, y =
   scale_y_continuous(limits=c(-2.5, 2.5)) +
   ylab("Beta"~(beta)~"\n") +
   xlab("Election Year") +
-    labs(title = "Market risk of the aggregated sectors, as represented by Beta", subtitle = "(tracked 90 days before and 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+    labs(title = "Holistic view of the market risk of each sector, as represented by Beta", subtitle = "(tracked 90 days before and 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
   theme(axis.title=element_text(size = 12, face = "bold")) +
   theme_solarized() +
   theme(legend.position="none")
 
 betasPlot_aggregate
 
+```
+
+```{r}
+#Linear regression models
 ```
 
 ```{r}
