@@ -18,6 +18,7 @@ library(ggthemes)
 library(gridExtra)
 library(sparkline)
 library(dplyr)
+library(car)
 
 
 ```
@@ -721,15 +722,42 @@ averageBetaRepublican <- round(
     mean(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2016)),
     mean(c(beta_materials2000, beta_materials2004, beta_materials2016))), 2)
 
-sectorStdDev <- data.frame(sectors, stdDevBeta, averageBeta, averageBetaDemocrat, averageBetaRepublican, abs(averageBetaRepublican - averageBetaDemocrat))
+differenceOfParties <- averageBetaRepublican- averageBetaDemocrat
 
-sectorStdDev <- sectorStdDev %>%
+sectorTable <- data.frame(sectors, stdDevBeta, averageBeta, averageBetaDemocrat, averageBetaRepublican, differenceOfParties)
+
+sectorTable <- sectorStdDev %>%
   arrange(desc(stdDevBeta))
 
-sectorStdDev
+reactableSectorTable <- reactable(
+  sectorTable[1:11, ],
+  defaultPageSize = 11,
+  bordered = FALSE,
+  resizable = TRUE,
+  wrap = TRUE,
+  fullWidth = TRUE,
+  defaultColDef = colDef(format = colFormat(separators = TRUE, digits = 2), footer = function(values) {
+    if (!is.numeric(values)) return()
+    sparkline(values, type = "line", minWidth = 70, height = 20)
+  },
+  minWidth = 40)
+)
+reactableSectorTable
+
+average_versus_differenceOfParties <- lm(averageBeta ~ differenceOfParties, data = sectorTable)  #Create a linear model
+coefficients(stdDev_versus_differenceOfParties) # as the difference between the average of the two parties' betas grows, the std dev of the Beta in general grows, meaning that some sectors are much more risky depending on which party wins
+residualPlots(average_versus_differenceOfParties)
+qqPlot(average_versus_differenceOfParties)
+
+```
+
+```{r}
+# I begin to track 120 days during each election.
+
 
 
 ```
+
 ```{r pressure, echo=FALSE}
 plot(pressure)
 ```
