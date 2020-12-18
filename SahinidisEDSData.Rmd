@@ -17,6 +17,7 @@ library(ggplot2)
 library(ggthemes)
 library(gridExtra)
 library(sparkline)
+library(dplyr)
 
 
 ```
@@ -40,9 +41,6 @@ market2004 <- read_excel("electionsp500.xlsx", sheet = "2004")
 market2008 <- read_excel("electionsp500.xlsx", sheet = "2008")
 market2012 <- read_excel("electionsp500.xlsx", sheet = "2012")
 market2016 <- read_excel("electionsp500.xlsx", sheet = "2016")
-
-
-winners <- c("2000R", "2004R", "2008D", "2012D", "2016R" )
 
 #Graphs
 
@@ -276,71 +274,71 @@ sd_market2016 <- sd(market2016$return)
 ```{r}
 # Beta calculations: correlation of sector with market * (sd of sector / sd of market)
 
-beta_consumerGoods2000 <- correl_consumerGoods2000 * sd_consumerGoods2000 / sd_market2000
-beta_consumerGoods2004 <- correl_consumerGoods2004 * sd_consumerGoods2004 / sd_market2004
-beta_consumerGoods2008 <- correl_consumerGoods2008 * sd_consumerGoods2008 / sd_market2008
-beta_consumerGoods2012 <- correl_consumerGoods2012 * sd_consumerGoods2012 / sd_market2012
-beta_consumerGoods2016 <- correl_consumerGoods2016 * sd_consumerGoods2016 / sd_market2016
+beta_consumerGoods2000 <- round((correl_consumerGoods2000 * sd_consumerGoods2000 / sd_market2000), 2)
+beta_consumerGoods2004 <- round((correl_consumerGoods2004 * sd_consumerGoods2004 / sd_market2004), 2)
+beta_consumerGoods2008 <- round((correl_consumerGoods2008 * sd_consumerGoods2008 / sd_market2008), 2)
+beta_consumerGoods2012 <- round((correl_consumerGoods2012 * sd_consumerGoods2012 / sd_market2012), 2)
+beta_consumerGoods2016 <- round((correl_consumerGoods2016 * sd_consumerGoods2016 / sd_market2016), 2)
 
-beta_realEstate2000 <- correl_realEstate2000 * sd_realEstate2000 / sd_market2000
-beta_realEstate2004 <- correl_realEstate2004 * sd_realEstate2004 / sd_market2004
-beta_realEstate2008 <- correl_realEstate2008 * sd_realEstate2008 / sd_market2008
-beta_realEstate2012 <- correl_realEstate2012 * sd_realEstate2012 / sd_market2012
-beta_realEstate2016 <- correl_realEstate2016 * sd_realEstate2016 / sd_market2016
+beta_realEstate2000 <- round((correl_realEstate2000 * sd_realEstate2000 / sd_market2000), 2)
+beta_realEstate2004 <- round((correl_realEstate2004 * sd_realEstate2004 / sd_market2004), 2)
+beta_realEstate2008 <- round((correl_realEstate2008 * sd_realEstate2008 / sd_market2008), 2)
+beta_realEstate2012 <- round((correl_realEstate2012 * sd_realEstate2012 / sd_market2012), 2)
+beta_realEstate2016 <- round((correl_realEstate2016 * sd_realEstate2016 / sd_market2016), 2)
 
-beta_telecommunications2000 <- correl_telecommunications2000 * sd_telecommunications2000 / sd_market2000
-beta_telecommunications2004 <- correl_telecommunications2004 * sd_telecommunications2004 / sd_market2004
-beta_telecommunications2008 <- correl_telecommunications2008 * sd_telecommunications2008 / sd_market2008
-beta_telecommunications2012 <- correl_telecommunications2012 * sd_telecommunications2012 / sd_market2012
-beta_telecommunications2016 <- correl_telecommunications2016 * sd_telecommunications2016 / sd_market2016
+beta_telecommunications2000 <- round((correl_telecommunications2000 * sd_telecommunications2000 / sd_market2000), 2)
+beta_telecommunications2004 <- round((correl_telecommunications2004 * sd_telecommunications2004 / sd_market2004), 2)
+beta_telecommunications2008 <- round((correl_telecommunications2008 * sd_telecommunications2008 / sd_market2008), 2)
+beta_telecommunications2012 <- round((correl_telecommunications2012 * sd_telecommunications2012 / sd_market2012), 2)
+beta_telecommunications2016 <- round((correl_telecommunications2016 * sd_telecommunications2016 / sd_market2016), 2)
 
-beta_utilities2000 <- correl_utilities2000 * sd_utilities2000 / sd_market2000
-beta_utilities2004 <- correl_utilities2004 * sd_utilities2004 / sd_market2004
-beta_utilities2008 <- correl_utilities2008 * sd_utilities2008 / sd_market2008
-beta_utilities2012 <- correl_utilities2012 * sd_utilities2012 / sd_market2012
-beta_utilities2016 <- correl_utilities2016 * sd_utilities2016 / sd_market2016
+beta_utilities2000 <- round((correl_utilities2000 * sd_utilities2000 / sd_market2000), 2)
+beta_utilities2004 <- round((correl_utilities2004 * sd_utilities2004 / sd_market2004), 2)
+beta_utilities2008 <- round((correl_utilities2008 * sd_utilities2008 / sd_market2008), 2)
+beta_utilities2012 <- round((correl_utilities2012 * sd_utilities2012 / sd_market2012), 2)
+beta_utilities2016 <- round((correl_utilities2016 * sd_utilities2016 / sd_market2016), 2)
 
-beta_technology2000 <- correl_technology2000 * sd_technology2000 / sd_market2000
-beta_technology2004 <- correl_technology2004 * sd_technology2004 / sd_market2004
-beta_technology2008 <- correl_technology2008 * sd_technology2008 / sd_market2008
-beta_technology2012 <- correl_technology2012 * sd_technology2012 / sd_market2012
-beta_technology2016 <- correl_technology2016 * sd_technology2016 / sd_market2016
+beta_technology2000 <- round((correl_technology2000 * sd_technology2000 / sd_market2000), 2)
+beta_technology2004 <- round((correl_technology2004 * sd_technology2004 / sd_market2004), 2)
+beta_technology2008 <- round((correl_technology2008 * sd_technology2008 / sd_market2008), 2)
+beta_technology2012 <- round((correl_technology2012 * sd_technology2012 / sd_market2012), 2)
+beta_technology2016 <- round((correl_technology2016 * sd_technology2016 / sd_market2016), 2)
 
-beta_industrial2000 <- correl_industrial2000 * sd_industrial2000 / sd_market2000
-beta_industrial2004 <- correl_industrial2004 * sd_industrial2004 / sd_market2004
-beta_industrial2008 <- correl_industrial2008 * sd_industrial2008 / sd_market2008
-beta_industrial2012 <- correl_industrial2012 * sd_industrial2012 / sd_market2012
-beta_industrial2016 <- correl_industrial2016 * sd_industrial2016 / sd_market2016
+beta_industrial2000 <- round((correl_industrial2000 * sd_industrial2000 / sd_market2000), 2)
+beta_industrial2004 <- round((correl_industrial2004 * sd_industrial2004 / sd_market2004), 2)
+beta_industrial2008 <- round((correl_industrial2008 * sd_industrial2008 / sd_market2008), 2)
+beta_industrial2012 <- round((correl_industrial2012 * sd_industrial2012 / sd_market2012), 2)
+beta_industrial2016 <- round((correl_industrial2016 * sd_industrial2016 / sd_market2016), 2)
 
-beta_financial2000 <- correl_financial2000 * sd_financial2000 / sd_market2000
-beta_financial2004 <- correl_financial2004 * sd_financial2004 / sd_market2004
-beta_financial2008 <- correl_financial2008 * sd_financial2008 / sd_market2008
-beta_financial2012 <- correl_financial2012 * sd_financial2012 / sd_market2012
-beta_financial2016 <- correl_financial2016 * sd_financial2016 / sd_market2016
+beta_financial2000 <- round((correl_financial2000 * sd_financial2000 / sd_market2000), 2)
+beta_financial2004 <- round((correl_financial2004 * sd_financial2004 / sd_market2004), 2)
+beta_financial2008 <- round((correl_financial2008 * sd_financial2008 / sd_market2008), 2)
+beta_financial2012 <- round((correl_financial2012 * sd_financial2012 / sd_market2012), 2)
+beta_financial2016 <- round((correl_financial2016 * sd_financial2016 / sd_market2016), 2)
 
-beta_energy2000 <- correl_energy2000 * sd_energy2000 / sd_market2000
-beta_energy2004 <- correl_energy2004 * sd_energy2004 / sd_market2004
-beta_energy2008 <- correl_energy2008 * sd_energy2008 / sd_market2008
-beta_energy2012 <- correl_energy2012 * sd_energy2012 / sd_market2012
-beta_energy2016 <- correl_energy2016 * sd_energy2016 / sd_market2016
+beta_energy2000 <- round((correl_energy2000 * sd_energy2000 / sd_market2000), 2)
+beta_energy2004 <- round((correl_energy2004 * sd_energy2004 / sd_market2004), 2)
+beta_energy2008 <- round((correl_energy2008 * sd_energy2008 / sd_market2008), 2)
+beta_energy2012 <- round((correl_energy2012 * sd_energy2012 / sd_market2012), 2)
+beta_energy2016 <- round((correl_energy2016 * sd_energy2016 / sd_market2016), 2)
 
-beta_consumerDiscretionary2000 <- correl_consumerDiscretionary2000 * sd_consumerDiscretionary2000 / sd_market2000
-beta_consumerDiscretionary2004 <- correl_consumerDiscretionary2004 * sd_consumerDiscretionary2004 / sd_market2004
-beta_consumerDiscretionary2008 <- correl_consumerDiscretionary2008 * sd_consumerDiscretionary2008 / sd_market2008
-beta_consumerDiscretionary2012 <- correl_consumerDiscretionary2012 * sd_consumerDiscretionary2012 / sd_market2012
-beta_consumerDiscretionary2016 <- correl_consumerDiscretionary2016 * sd_consumerDiscretionary2016 / sd_market2016
+beta_consumerDiscretionary2000 <- round((correl_consumerDiscretionary2000 * sd_consumerDiscretionary2000 / sd_market2000), 2)
+beta_consumerDiscretionary2004 <- round((correl_consumerDiscretionary2004 * sd_consumerDiscretionary2004 / sd_market2004), 2)
+beta_consumerDiscretionary2008 <- round((correl_consumerDiscretionary2008 * sd_consumerDiscretionary2008 / sd_market2008), 2)
+beta_consumerDiscretionary2012 <- round((correl_consumerDiscretionary2012 * sd_consumerDiscretionary2012 / sd_market2012), 2)
+beta_consumerDiscretionary2016 <- round((correl_consumerDiscretionary2016 * sd_consumerDiscretionary2016 / sd_market2016), 2)
 
-beta_healthCare2000 <- correl_healthCare2000 * sd_healthCare2000 / sd_market2000
-beta_healthCare2004 <- correl_healthCare2004 * sd_healthCare2004 / sd_market2004
-beta_healthCare2008 <- correl_healthCare2008 * sd_healthCare2008 / sd_market2008
-beta_healthCare2012 <- correl_healthCare2012 * sd_healthCare2012 / sd_market2012
-beta_healthCare2016 <- correl_healthCare2016 * sd_healthCare2016 / sd_market2016
+beta_healthCare2000 <- round((correl_healthCare2000 * sd_healthCare2000 / sd_market2000), 2)
+beta_healthCare2004 <- round((correl_healthCare2004 * sd_healthCare2004 / sd_market2004), 2)
+beta_healthCare2008 <- round((correl_healthCare2008 * sd_healthCare2008 / sd_market2008), 2)
+beta_healthCare2012 <- round((correl_healthCare2012 * sd_healthCare2012 / sd_market2012), 2)
+beta_healthCare2016 <- round((correl_healthCare2016 * sd_healthCare2016 / sd_market2016), 2)
 
-beta_materials2000 <- correl_materials2000 * sd_materials2000 / sd_market2000
-beta_materials2004 <- correl_materials2004 * sd_materials2004 / sd_market2004
-beta_materials2008 <- correl_materials2008 * sd_materials2008 / sd_market2008
-beta_materials2012 <- correl_materials2012 * sd_materials2012 / sd_market2012
-beta_materials2016 <- correl_materials2016 * sd_materials2016 / sd_market2016
+beta_materials2000 <- round((correl_materials2000 * sd_materials2000 / sd_market2000), 2)
+beta_materials2004 <- round((correl_materials2004 * sd_materials2004 / sd_market2004), 2)
+beta_materials2008 <- round((correl_materials2008 * sd_materials2008 / sd_market2008), 2)
+beta_materials2012 <- round((correl_materials2012 * sd_materials2012 / sd_market2012), 2)
+beta_materials2016 <- round((correl_materials2016 * sd_materials2016 / sd_market2016), 2)
 ```
 
 ```{r}
@@ -352,7 +350,7 @@ beta_materials2016 <- correl_materials2016 * sd_materials2016 / sd_market2016
 electionYears <- c("2000", "2004", "2008", "2012", "2016")
 
 
-values_consumerGoodsBeta <- round(c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2008, beta_consumerGoods2012, beta_consumerGoods2016), 2)
+values_consumerGoodsBeta <- c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2008, beta_consumerGoods2012, beta_consumerGoods2016)
 betas_consumerGoods <- data.frame(electionYears, values_consumerGoodsBeta)
 mid = 0
 betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = electionYears, y = values_consumerGoodsBeta, group = 1)) +
@@ -367,7 +365,7 @@ betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = electionYe
   theme_solarized() +
   theme(legend.position="none")
 
-values_realEstateBeta <- round(c(beta_realEstate2000, beta_realEstate2004, beta_realEstate2008, beta_realEstate2012, beta_realEstate2016), 2)
+values_realEstateBeta <- c(beta_realEstate2000, beta_realEstate2004, beta_realEstate2008, beta_realEstate2012, beta_realEstate2016)
 betas_realEstate <- data.frame(electionYears, values_realEstateBeta)
 mid = 0
 betasPlot_realEstate <- ggplot(data = betas_realEstate, aes(x = electionYears, y = values_realEstateBeta, group = 1)) +
@@ -382,7 +380,7 @@ betasPlot_realEstate <- ggplot(data = betas_realEstate, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_telecommunicationsBeta <- round(c(beta_telecommunications2000, beta_telecommunications2004, beta_telecommunications2008, beta_telecommunications2012, beta_telecommunications2016), 2)
+values_telecommunicationsBeta <- c(beta_telecommunications2000, beta_telecommunications2004, beta_telecommunications2008, beta_telecommunications2012, beta_telecommunications2016)
 betas_telecommunications <- data.frame(electionYears, values_telecommunicationsBeta)
 mid = 0
 betasPlot_telecommunications <- ggplot(data = betas_telecommunications, aes(x = electionYears, y = values_telecommunicationsBeta, group = 1)) +
@@ -397,7 +395,7 @@ betasPlot_telecommunications <- ggplot(data = betas_telecommunications, aes(x = 
   theme_solarized() +
   theme(legend.position="none")
 
-values_utilitiesBeta <- round(c(beta_utilities2000, beta_utilities2004, beta_utilities2008, beta_utilities2012, beta_utilities2016), 2)
+values_utilitiesBeta <- c(beta_utilities2000, beta_utilities2004, beta_utilities2008, beta_utilities2012, beta_utilities2016)
 betas_utilities <- data.frame(electionYears, values_utilitiesBeta)
 mid = 0
 betasPlot_utilities <- ggplot(data = betas_utilities, aes(x = electionYears, y = values_utilitiesBeta, group = 1)) +
@@ -412,7 +410,7 @@ betasPlot_utilities <- ggplot(data = betas_utilities, aes(x = electionYears, y =
   theme_solarized() +
   theme(legend.position="none")
 
-values_technologyBeta <- round(c(beta_technology2000, beta_technology2004, beta_technology2008, beta_technology2012, beta_technology2016), 2)
+values_technologyBeta <- c(beta_technology2000, beta_technology2004, beta_technology2008, beta_technology2012, beta_technology2016)
 betas_technology <- data.frame(electionYears, values_technologyBeta)
 mid = 0
 betasPlot_technology <- ggplot(data = betas_technology, aes(x = electionYears, y = values_technologyBeta, group = 1)) +
@@ -427,7 +425,7 @@ betasPlot_technology <- ggplot(data = betas_technology, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_industrialBeta <- round(c(beta_industrial2000, beta_industrial2004, beta_industrial2008, beta_industrial2012, beta_industrial2016), 2)
+values_industrialBeta <- c(beta_industrial2000, beta_industrial2004, beta_industrial2008, beta_industrial2012, beta_industrial2016)
 betas_industrial <- data.frame(electionYears, values_industrialBeta)
 mid = 0
 betasPlot_industrial <- ggplot(data = betas_industrial, aes(x = electionYears, y = values_industrialBeta, group = 1)) +
@@ -442,7 +440,7 @@ betasPlot_industrial <- ggplot(data = betas_industrial, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_financialBeta <- round(c(beta_financial2000, beta_financial2004, beta_financial2008, beta_financial2012, beta_financial2016), 2)
+values_financialBeta <- c(beta_financial2000, beta_financial2004, beta_financial2008, beta_financial2012, beta_financial2016)
 betas_financial <- data.frame(electionYears, values_financialBeta)
 mid = 0
 betasPlot_financial <- ggplot(data = betas_financial, aes(x = electionYears, y = values_financialBeta, group = 1)) +
@@ -457,7 +455,7 @@ betasPlot_financial <- ggplot(data = betas_financial, aes(x = electionYears, y =
   theme_solarized() +
   theme(legend.position="none")
 
-values_energyBeta <- round(c(beta_energy2000, beta_energy2004, beta_energy2008, beta_energy2012, beta_energy2016), 2)
+values_energyBeta <- c(beta_energy2000, beta_energy2004, beta_energy2008, beta_energy2012, beta_energy2016)
 betas_energy <- data.frame(electionYears, values_energyBeta)
 mid = 0
 betasPlot_energy <- ggplot(data = betas_energy, aes(x = electionYears, y = values_energyBeta, group = 1)) +
@@ -472,7 +470,7 @@ betasPlot_energy <- ggplot(data = betas_energy, aes(x = electionYears, y = value
   theme_solarized() +
   theme(legend.position="none")
 
-values_consumerDiscretionaryBeta <- round(c(beta_consumerDiscretionary2000, beta_consumerDiscretionary2004, beta_consumerDiscretionary2008, beta_consumerDiscretionary2012, beta_consumerDiscretionary2016), 2)
+values_consumerDiscretionaryBeta <- c(beta_consumerDiscretionary2000, beta_consumerDiscretionary2004, beta_consumerDiscretionary2008, beta_consumerDiscretionary2012, beta_consumerDiscretionary2016)
 betas_consumerDiscretionary <- data.frame(electionYears, values_consumerDiscretionaryBeta)
 mid = 0
 betasPlot_consumerDiscretionary <- ggplot(data = betas_consumerDiscretionary, aes(x = electionYears, y = values_consumerDiscretionaryBeta, group = 1)) +
@@ -487,7 +485,7 @@ betasPlot_consumerDiscretionary <- ggplot(data = betas_consumerDiscretionary, ae
   theme_solarized() +
   theme(legend.position="none")
 
-values_healthCareBeta <- round(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2008, beta_healthCare2012, beta_healthCare2016), 2)
+values_healthCareBeta <- c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2008, beta_healthCare2012, beta_healthCare2016)
 betas_healthCare <- data.frame(electionYears, values_healthCareBeta)
 mid = 0
 betasPlot_healthCare <- ggplot(data = betas_healthCare, aes(x = electionYears, y = values_healthCareBeta, group = 1)) +
@@ -502,7 +500,7 @@ betasPlot_healthCare <- ggplot(data = betas_healthCare, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_materialsBeta <- round(c(beta_materials2000, beta_materials2004, beta_materials2008, beta_materials2012, beta_materials2016), 2)
+values_materialsBeta <- c(beta_materials2000, beta_materials2004, beta_materials2008, beta_materials2012, beta_materials2016)
 betas_materials <- data.frame(electionYears, values_materialsBeta)
 mid = 0
 betasPlot_materials <- ggplot(data = betas_materials, aes(x = electionYears, y = values_materialsBeta, group = 1)) +
@@ -569,6 +567,9 @@ betasPlot_aggregate
 winners <- c("Republican", "Republican", "Democrat", "Democrat", "Republican")
 
 betaTable <- data.frame(electionYears, winners, values_consumerGoodsBeta, values_realEstateBeta, values_telecommunicationsBeta, values_utilitiesBeta, values_technologyBeta, values_industrialBeta, values_financialBeta, values_energyBeta, values_consumerDiscretionaryBeta, values_healthCareBeta, values_materialsBeta)
+
+
+
 ### Reactable Table Settings ###
 
 options(reactable.theme = reactableTheme(
@@ -582,7 +583,7 @@ options(reactable.theme = reactableTheme(
   selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
   pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
   pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
-  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.7em"),
+  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.4em"),
 ))
 
 reactableBetaTable <- reactable(
@@ -590,13 +591,13 @@ reactableBetaTable <- reactable(
   defaultPageSize = 5,
   bordered = FALSE,
   resizable = TRUE,
-  wrap = TRUE,
+  wrap = FALSE,
   fullWidth = TRUE,
   defaultColDef = colDef(footer = function(values) {
     if (!is.numeric(values)) return()
     sparkline(values, type = "line", minWidth = 70, height = 20)
   },
-  minWidth = 100),
+  minWidth = 60),
   columns = list(
     electionYears = colDef(name = "Year"),
     winners = colDef(name = "Winner"),
@@ -619,10 +620,116 @@ reactableBetaTable
 ```
 
 ```{r}
+empty <- c("Year", "Winner", "Consumer Goods", "Real Estate", "Telecommunications", "Utilities", "Technology", "Industrial", "Financial", "Energy", "Consumer Discretionary", "Health Care", "Materials")
 
+column2000 <- c(electionYears[1], winners[1], beta_consumerGoods2000, beta_realEstate2000, beta_telecommunications2000, beta_utilities2000, beta_technology2000, beta_industrial2000, beta_financial2000, beta_energy2000, beta_consumerDiscretionary2000, beta_healthCare2000, beta_materials2000)
+column2004 <- c(electionYears[2], winners[2], beta_consumerGoods2004, beta_realEstate2004, beta_telecommunications2004, beta_utilities2004, beta_technology2004, beta_industrial2004, beta_financial2004, beta_energy2004, beta_consumerDiscretionary2004, beta_healthCare2004, beta_materials2004)
+column2008 <- c(electionYears[3], winners[3], beta_consumerGoods2008, beta_realEstate2008, beta_telecommunications2008, beta_utilities2008, beta_technology2008, beta_industrial2008, beta_financial2008, beta_energy2008, beta_consumerDiscretionary2008, beta_healthCare2008, beta_materials2008)
+column2012 <- c(electionYears[4], winners[4], beta_consumerGoods2012, beta_realEstate2012, beta_telecommunications2012, beta_utilities2012, beta_technology2012, beta_industrial2012, beta_financial2012, beta_energy2012, beta_consumerDiscretionary2012, beta_healthCare2012, beta_materials2012)
+column2016 <- c(electionYears[5], winners[5], beta_consumerGoods2016, beta_realEstate2016, beta_telecommunications2016, beta_utilities2016, beta_technology2016, beta_industrial2016, beta_financial2016, beta_energy2016, beta_consumerDiscretionary2016, beta_healthCare2016, beta_materials2016)
+
+betaTable2 <- data.frame(empty, column2000, column2004, column2008, column2012, column2016)
+
+options(reactable.theme = reactableTheme(
+  color = "#911225",
+  backgroundColor = "#74a4af",
+  borderColor = "hsl(233, 9%, 22%)",
+  stripedColor = "hsl(233, 12%, 22%)",
+  highlightColor = "hsl(233, 12%, 24%)",
+  cellPadding = "6px 14px",
+  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
+  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.7em"),
+))
+
+reactableBetaTable2 <- reactable(
+  betaTable2[1:13, ],
+  defaultPageSize = 13,
+  bordered = FALSE,
+  resizable = TRUE,
+  wrap = TRUE,
+  fullWidth = TRUE,
+  defaultColDef = colDef(footer = function(values) {
+    if (!is.numeric(values)) return()
+    sparkline(values, type = "line", minWidth = 70, height = 20)
+  },
+  minWidth = 40)
+)
+
+reactableBetaTable2
 ```
 ## Including Plots
 
+
+```{r}
+# Standard deviation calculation for each sector
+sectors <- c("Consumer Goods", "Real Estate", "Telecommunications", "Utilities", "Technology", "Industrial", "Financial", "Energy", "Consumer Discretionary", "Health Care", "Materials")
+
+stdDevBeta <- round(c(sd(values_consumerGoodsBeta),
+sd(values_realEstateBeta),
+sd(values_telecommunicationsBeta),
+sd(values_utilitiesBeta),
+sd(values_technologyBeta),
+sd(values_industrialBeta),
+sd(values_financialBeta),
+sd(values_energyBeta),
+sd(values_consumerDiscretionaryBeta),
+sd(values_healthCareBeta),
+sd(values_materialsBeta)), 2)
+
+averageBeta <- round(c(mean(values_consumerGoodsBeta),
+mean(values_realEstateBeta),
+mean(values_telecommunicationsBeta),
+mean(values_utilitiesBeta),
+mean(values_technologyBeta),
+mean(values_industrialBeta),
+mean(values_financialBeta),
+mean(values_energyBeta),
+mean(values_consumerDiscretionaryBeta),
+mean(values_healthCareBeta),
+mean(values_materialsBeta)), 2)
+
+averageBetaDemocrat <- round(
+  c(
+    mean(c(beta_consumerGoods2008, beta_consumerGoods2012)),
+    mean(c(beta_realEstate2008, beta_realEstate2012)),
+    mean(c(beta_telecommunications2008, beta_telecommunications2012)),
+    mean(c(beta_utilities2008, beta_utilities2012)),
+    mean(c(beta_technology2008, beta_technology2012)),
+    mean(c(beta_industrial2008, beta_industrial2012)),
+    mean(c(beta_financial2008, beta_financial2012)),
+    mean(c(beta_energy2008, beta_energy2012)),
+    mean(c(beta_consumerDiscretionary2008, beta_consumerDiscretionary2012)),
+    mean(c(beta_healthCare2008, beta_healthCare2012)),
+    mean(c(beta_materials2008, beta_materials2012))), 2)
+
+averageBetaDemocrat
+
+averageBetaRepublican <- round(
+  c(
+    mean(c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2016)),
+    mean(c(beta_realEstate2000, beta_realEstate2004, beta_realEstate2016)),
+    mean(c(beta_telecommunications2000, beta_telecommunications2004, beta_telecommunications2016)),
+    mean(c(beta_utilities2000, beta_utilities2004, beta_utilities2016)),
+    mean(c(beta_technology2000, beta_technology2004, beta_technology2016)),
+    mean(c(beta_industrial2000, beta_industrial2004, beta_industrial2016)),
+    mean(c(beta_financial2000, beta_financial2004, beta_financial2016)),
+    mean(c(beta_energy2000, beta_energy2004, beta_energy2016)),
+    mean(c(beta_consumerDiscretionary2000, beta_consumerDiscretionary2004, beta_consumerDiscretionary2016)),
+    mean(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2016)),
+    mean(c(beta_materials2000, beta_materials2004, beta_materials2016))), 2)
+
+sectorStdDev <- data.frame(sectors, stdDevBeta, averageBeta, averageBetaDemocrat, averageBetaRepublican, abs(averageBetaRepublican - averageBetaDemocrat))
+
+sectorStdDev <- sectorStdDev %>%
+  arrange(desc(stdDevBeta))
+
+sectorStdDev
+
+
+```
 ```{r pressure, echo=FALSE}
 plot(pressure)
 ```
