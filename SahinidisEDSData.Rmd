@@ -577,28 +577,30 @@ options(reactable.theme = reactableTheme(
   borderColor = "hsl(233, 9%, 22%)",
   stripedColor = "hsl(233, 12%, 22%)",
   highlightColor = "hsl(233, 12%, 24%)",
-  cellPadding = "6px 4px",
+  cellPadding = "6px 14px",
   inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
   selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
   pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
   pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
-  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
+  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.7em"),
 ))
 
-reactable(
+reactableBetaTable <- reactable(
   betaTable[1:5, ],
   defaultPageSize = 5,
   bordered = FALSE,
-  resizable = FALSE,
+  resizable = TRUE,
   wrap = TRUE,
+  fullWidth = TRUE,
   defaultColDef = colDef(footer = function(values) {
     if (!is.numeric(values)) return()
-    sparkline(values, type = "box", width = 100, height = 30)
-  }),
+    sparkline(values, type = "line", minWidth = 70, height = 20)
+  },
+  minWidth = 100),
   columns = list(
     electionYears = colDef(name = "Year"),
     winners = colDef(name = "Winner"),
-    values_consumerGoodsBeta = colDef(name = "Consumer Goods"),
+    values_consumerGoodsBeta = colDef(name = "Consumer\nGoods"),
     values_realEstateBeta = colDef(name = "Real Estate"),
     values_telecommunicationsBeta = colDef(name = "Telecommunications"),
     values_utilitiesBeta = colDef(name = "Utilities"),
@@ -606,12 +608,14 @@ reactable(
     values_industrialBeta = colDef(name = "Industrial"),
     values_financialBeta = colDef(name = "Financial"),
     values_energyBeta = colDef(name = "Energy"),
-    values_consumerDiscretionaryBeta = colDef(name = "Consumer Discretionary"),
+    values_consumerDiscretionaryBeta = colDef(name = "Consumer\nDiscretionary"),
     values_healthCareBeta = colDef(name = "Health Care"),
     values_materialsBeta = colDef(name = "Materials")),
   columnGroups = list(
-    colGroup(name = "Beta", columns = c("values_consumerGoodsBeta", "values_realEstateBeta", "values_telecommunicationsBeta", "values_utilitiesBeta", "values_technologyBeta", "values_industrialBeta", "values_financialBeta", "values_energyBeta", "values_consumerDiscretionaryBeta", "values_healthCareBeta", "values_materialsBeta")), colGroup(name = "Election Information", columns = c("electionYears", "winners"))),
-  )
+    colGroup(name = "Beta", columns = c("values_consumerGoodsBeta", "values_realEstateBeta", "values_telecommunicationsBeta", "values_utilitiesBeta", "values_technologyBeta", "values_industrialBeta", "values_financialBeta", "values_energyBeta", "values_consumerDiscretionaryBeta", "values_healthCareBeta", "values_materialsBeta")), colGroup(name = "Election Information", columns = c("electionYears", "winners"))))
+
+reactableBetaTable
+
 ```
 
 ```{r}
