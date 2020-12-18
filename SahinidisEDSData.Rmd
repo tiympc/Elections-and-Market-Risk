@@ -352,7 +352,7 @@ beta_materials2016 <- correl_materials2016 * sd_materials2016 / sd_market2016
 electionYears <- c("2000", "2004", "2008", "2012", "2016")
 
 
-values_consumerGoodsBeta <- round(c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2008, beta_consumerGoods2012, beta_consumerGoods2016), 3)
+values_consumerGoodsBeta <- round(c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2008, beta_consumerGoods2012, beta_consumerGoods2016), 2)
 betas_consumerGoods <- data.frame(electionYears, values_consumerGoodsBeta)
 mid = 0
 betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = electionYears, y = values_consumerGoodsBeta, group = 1)) +
@@ -367,7 +367,7 @@ betasPlot_consumerGoods <- ggplot(data = betas_consumerGoods, aes(x = electionYe
   theme_solarized() +
   theme(legend.position="none")
 
-values_realEstateBeta <- round(c(beta_realEstate2000, beta_realEstate2004, beta_realEstate2008, beta_realEstate2012, beta_realEstate2016), 3)
+values_realEstateBeta <- round(c(beta_realEstate2000, beta_realEstate2004, beta_realEstate2008, beta_realEstate2012, beta_realEstate2016), 2)
 betas_realEstate <- data.frame(electionYears, values_realEstateBeta)
 mid = 0
 betasPlot_realEstate <- ggplot(data = betas_realEstate, aes(x = electionYears, y = values_realEstateBeta, group = 1)) +
@@ -382,7 +382,7 @@ betasPlot_realEstate <- ggplot(data = betas_realEstate, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_telecommunicationsBeta <- round(c(beta_telecommunications2000, beta_telecommunications2004, beta_telecommunications2008, beta_telecommunications2012, beta_telecommunications2016), 3)
+values_telecommunicationsBeta <- round(c(beta_telecommunications2000, beta_telecommunications2004, beta_telecommunications2008, beta_telecommunications2012, beta_telecommunications2016), 2)
 betas_telecommunications <- data.frame(electionYears, values_telecommunicationsBeta)
 mid = 0
 betasPlot_telecommunications <- ggplot(data = betas_telecommunications, aes(x = electionYears, y = values_telecommunicationsBeta, group = 1)) +
@@ -397,7 +397,7 @@ betasPlot_telecommunications <- ggplot(data = betas_telecommunications, aes(x = 
   theme_solarized() +
   theme(legend.position="none")
 
-values_utilitiesBeta <- round(c(beta_utilities2000, beta_utilities2004, beta_utilities2008, beta_utilities2012, beta_utilities2016), 3)
+values_utilitiesBeta <- round(c(beta_utilities2000, beta_utilities2004, beta_utilities2008, beta_utilities2012, beta_utilities2016), 2)
 betas_utilities <- data.frame(electionYears, values_utilitiesBeta)
 mid = 0
 betasPlot_utilities <- ggplot(data = betas_utilities, aes(x = electionYears, y = values_utilitiesBeta, group = 1)) +
@@ -412,7 +412,7 @@ betasPlot_utilities <- ggplot(data = betas_utilities, aes(x = electionYears, y =
   theme_solarized() +
   theme(legend.position="none")
 
-values_technologyBeta <- round(c(beta_technology2000, beta_technology2004, beta_technology2008, beta_technology2012, beta_technology2016), 3)
+values_technologyBeta <- round(c(beta_technology2000, beta_technology2004, beta_technology2008, beta_technology2012, beta_technology2016), 2)
 betas_technology <- data.frame(electionYears, values_technologyBeta)
 mid = 0
 betasPlot_technology <- ggplot(data = betas_technology, aes(x = electionYears, y = values_technologyBeta, group = 1)) +
@@ -427,7 +427,7 @@ betasPlot_technology <- ggplot(data = betas_technology, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_industrialBeta <- round(c(beta_industrial2000, beta_industrial2004, beta_industrial2008, beta_industrial2012, beta_industrial2016), 3)
+values_industrialBeta <- round(c(beta_industrial2000, beta_industrial2004, beta_industrial2008, beta_industrial2012, beta_industrial2016), 2)
 betas_industrial <- data.frame(electionYears, values_industrialBeta)
 mid = 0
 betasPlot_industrial <- ggplot(data = betas_industrial, aes(x = electionYears, y = values_industrialBeta, group = 1)) +
@@ -442,7 +442,7 @@ betasPlot_industrial <- ggplot(data = betas_industrial, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_financialBeta <- round(c(beta_financial2000, beta_financial2004, beta_financial2008, beta_financial2012, beta_financial2016), 3)
+values_financialBeta <- round(c(beta_financial2000, beta_financial2004, beta_financial2008, beta_financial2012, beta_financial2016), 2)
 betas_financial <- data.frame(electionYears, values_financialBeta)
 mid = 0
 betasPlot_financial <- ggplot(data = betas_financial, aes(x = electionYears, y = values_financialBeta, group = 1)) +
@@ -457,7 +457,7 @@ betasPlot_financial <- ggplot(data = betas_financial, aes(x = electionYears, y =
   theme_solarized() +
   theme(legend.position="none")
 
-values_energyBeta <- round(c(beta_energy2000, beta_energy2004, beta_energy2008, beta_energy2012, beta_energy2016), 3)
+values_energyBeta <- round(c(beta_energy2000, beta_energy2004, beta_energy2008, beta_energy2012, beta_energy2016), 2)
 betas_energy <- data.frame(electionYears, values_energyBeta)
 mid = 0
 betasPlot_energy <- ggplot(data = betas_energy, aes(x = electionYears, y = values_energyBeta, group = 1)) +
@@ -472,7 +472,7 @@ betasPlot_energy <- ggplot(data = betas_energy, aes(x = electionYears, y = value
   theme_solarized() +
   theme(legend.position="none")
 
-values_consumerDiscretionaryBeta <- round(c(beta_consumerDiscretionary2000, beta_consumerDiscretionary2004, beta_consumerDiscretionary2008, beta_consumerDiscretionary2012, beta_consumerDiscretionary2016), 3)
+values_consumerDiscretionaryBeta <- round(c(beta_consumerDiscretionary2000, beta_consumerDiscretionary2004, beta_consumerDiscretionary2008, beta_consumerDiscretionary2012, beta_consumerDiscretionary2016), 2)
 betas_consumerDiscretionary <- data.frame(electionYears, values_consumerDiscretionaryBeta)
 mid = 0
 betasPlot_consumerDiscretionary <- ggplot(data = betas_consumerDiscretionary, aes(x = electionYears, y = values_consumerDiscretionaryBeta, group = 1)) +
@@ -487,7 +487,7 @@ betasPlot_consumerDiscretionary <- ggplot(data = betas_consumerDiscretionary, ae
   theme_solarized() +
   theme(legend.position="none")
 
-values_healthCareBeta <- round(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2008, beta_healthCare2012, beta_healthCare2016), 3)
+values_healthCareBeta <- round(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2008, beta_healthCare2012, beta_healthCare2016), 2)
 betas_healthCare <- data.frame(electionYears, values_healthCareBeta)
 mid = 0
 betasPlot_healthCare <- ggplot(data = betas_healthCare, aes(x = electionYears, y = values_healthCareBeta, group = 1)) +
@@ -502,7 +502,7 @@ betasPlot_healthCare <- ggplot(data = betas_healthCare, aes(x = electionYears, y
   theme_solarized() +
   theme(legend.position="none")
 
-values_materialsBeta <- round(c(beta_materials2000, beta_materials2004, beta_materials2008, beta_materials2012, beta_materials2016), 3)
+values_materialsBeta <- round(c(beta_materials2000, beta_materials2004, beta_materials2008, beta_materials2012, beta_materials2016), 2)
 betas_materials <- data.frame(electionYears, values_materialsBeta)
 mid = 0
 betasPlot_materials <- ggplot(data = betas_materials, aes(x = electionYears, y = values_materialsBeta, group = 1)) +
@@ -539,13 +539,10 @@ betasPlot_materials
 ```{r}
 electionYears <- c("2000", "2004", "2008", "2012", "2016")
 
-
 values_aggregateBeta <- c(values_consumerGoodsBeta, values_realEstateBeta, values_telecommunicationsBeta, values_utilitiesBeta, values_technologyBeta, values_industrialBeta, values_financialBeta, values_energyBeta, values_consumerDiscretionaryBeta, values_healthCareBeta, values_materialsBeta)
 
-values_aggregateBeta
-
 betas_aggregate <- data.frame(electionYears, values_aggregateBeta)
-betas_aggregate
+
 mid = 0
 betasPlot_aggregate <- ggplot(data = betas_aggregate, aes(x = electionYears, y = values_aggregateBeta, group = 1)) +
   geom_point(aes(colour = values_aggregateBeta), size = 4) +
@@ -567,27 +564,54 @@ betasPlot_aggregate
 #Linear regression models
 ```
 
-```{r}
-
-```
 
 ```{r}
 winners <- c("Republican", "Republican", "Democrat", "Democrat", "Republican")
-electionYears
 
 betaTable <- data.frame(electionYears, winners, values_consumerGoodsBeta, values_realEstateBeta, values_telecommunicationsBeta, values_utilitiesBeta, values_technologyBeta, values_industrialBeta, values_financialBeta, values_energyBeta, values_consumerDiscretionaryBeta, values_healthCareBeta, values_materialsBeta)
+### Reactable Table Settings ###
+
+options(reactable.theme = reactableTheme(
+  color = "#911225",
+  backgroundColor = "#74a4af",
+  borderColor = "hsl(233, 9%, 22%)",
+  stripedColor = "hsl(233, 12%, 22%)",
+  highlightColor = "hsl(233, 12%, 24%)",
+  cellPadding = "6px 4px",
+  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
+  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif")
+))
 
 reactable(
   betaTable[1:5, ],
   defaultPageSize = 5,
-  bordered = TRUE,
+  bordered = FALSE,
+  resizable = FALSE,
+  wrap = TRUE,
   defaultColDef = colDef(footer = function(values) {
     if (!is.numeric(values)) return()
     sparkline(values, type = "box", width = 100, height = 30)
-  })
-)
-
-betaTable
+  }),
+  columns = list(
+    electionYears = colDef(name = "Year"),
+    winners = colDef(name = "Winner"),
+    values_consumerGoodsBeta = colDef(name = "Consumer Goods"),
+    values_realEstateBeta = colDef(name = "Real Estate"),
+    values_telecommunicationsBeta = colDef(name = "Telecommunications"),
+    values_utilitiesBeta = colDef(name = "Utilities"),
+    values_technologyBeta = colDef(name = "Technology"),
+    values_industrialBeta = colDef(name = "Industrial"),
+    values_financialBeta = colDef(name = "Financial"),
+    values_energyBeta = colDef(name = "Energy"),
+    values_consumerDiscretionaryBeta = colDef(name = "Consumer Discretionary"),
+    values_healthCareBeta = colDef(name = "Health Care"),
+    values_materialsBeta = colDef(name = "Materials")),
+  columnGroups = list(
+    colGroup(name = "Beta", columns = c("values_consumerGoodsBeta", "values_realEstateBeta", "values_telecommunicationsBeta", "values_utilitiesBeta", "values_technologyBeta", "values_industrialBeta", "values_financialBeta", "values_energyBeta", "values_consumerDiscretionaryBeta", "values_healthCareBeta", "values_materialsBeta")), colGroup(name = "Election Information", columns = c("electionYears", "winners"))),
+  )
 ```
 
 ```{r}
