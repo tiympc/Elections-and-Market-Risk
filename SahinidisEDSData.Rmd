@@ -492,12 +492,13 @@ reactableBetaTable2 <- reactable(
 reactableBetaTable2
 ```
 
-**We made a table for each individual beta. It is now a good idea to make a table for some other information and make our analysis more extensive. Therefore, we will look into political parties more closely.
+**We made a table for each individual beta. It is now a good idea to make a table for some other information and make our analysis more extensive. Therefore, we will look into political parties more closely.**
 ```{r}
-# Standard deviation calculation for each sector
+
 sectors <- c("Consumer Goods", "Real Estate", "Telecommunications", "Utilities", "Technology", "Industrial", "Financial", "Energy", "Consumer Discretionary", "Health Care", "Materials")
 
-stdDevBeta <- round(c(sd(values_consumerGoodsBeta),
+# Standard deviation calculation for each sector's beta.
+sdBeta <- round(c(sd(values_consumerGoodsBeta),
 sd(values_realEstateBeta),
 sd(values_telecommunicationsBeta),
 sd(values_utilitiesBeta),
@@ -509,6 +510,7 @@ sd(values_consumerDiscretionaryBeta),
 sd(values_healthCareBeta),
 sd(values_materialsBeta)), 2)
 
+# Mean calculation for each sector's beta.
 averageBeta <- round(c(mean(values_consumerGoodsBeta),
 mean(values_realEstateBeta),
 mean(values_telecommunicationsBeta),
@@ -521,6 +523,7 @@ mean(values_consumerDiscretionaryBeta),
 mean(values_healthCareBeta),
 mean(values_materialsBeta)), 2)
 
+# Mean calculation for each sector's beta during each year a Democrat candidate won.
 averageBetaDemocrat <- round(
   c(
     mean(c(beta_consumerGoods2008, beta_consumerGoods2012)),
@@ -535,8 +538,7 @@ averageBetaDemocrat <- round(
     mean(c(beta_healthCare2008, beta_healthCare2012)),
     mean(c(beta_materials2008, beta_materials2012))), 2)
 
-averageBetaDemocrat
-
+# Mean calculation for each sector's beta during each year a Republican candidate won.
 averageBetaRepublican <- round(
   c(
     mean(c(beta_consumerGoods2000, beta_consumerGoods2004, beta_consumerGoods2016)),
@@ -551,34 +553,52 @@ averageBetaRepublican <- round(
     mean(c(beta_healthCare2000, beta_healthCare2004, beta_healthCare2016)),
     mean(c(beta_materials2000, beta_materials2004, beta_materials2016))), 2)
 
+# The difference between each sector's beta depending on political party winner. 
 differenceOfParties <- averageBetaRepublican- averageBetaDemocrat
 
-sectorTable <- data.frame(sectors, stdDevBeta, averageBeta, averageBetaDemocrat, averageBetaRepublican, differenceOfParties)
+# Made a new and improved table that will be used with the 'reactable' package to make similar changes as seen with the previous tables.
+sectorTable <- data.frame(sectors, differenceOfParties, averageBeta, sdBeta, averageBetaDemocrat, averageBetaRepublican)
 
-sectorTable <- sectorStdDev %>%
-  arrange(desc(stdDevBeta))
+# Arranged the table in order depending on the standard deviation of the betas to see more easily which sector had the highest (lowest) standard deviation in beta.
+sectorTable <- sectorTable %>%
+  arrange(desc(differenceOfParties))
+
+options(reactable.theme = reactableTheme(
+  backgroundColor = "#fdf6e3",
+  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.7em"),
+))
 
 reactableSectorTable <- reactable(
   sectorTable[1:11, ],
   defaultPageSize = 11,
   bordered = FALSE,
   resizable = TRUE,
-  wrap = TRUE,
-  fullWidth = TRUE,
+  wrap = FALSE,
+  fullWidth = FALSE,
+  columns = list(sectors = colDef(name = "Sectors", width = 150),
+                 differenceOfParties = colDef(name = "Difference (R-D)", width = 110),
+                 averageBeta = colDef(name = "Average", width = 100),
+                 sdBeta = colDef(name = "Std. Dev.", width = 100),
+                 averageBetaDemocrat = colDef("Avg. w/ Democrat"),
+                 averageBetaRepublican = colDef("Avg. w/ Republican")),
   defaultColDef = colDef(format = colFormat(separators = TRUE, digits = 2), footer = function(values) {
     if (!is.numeric(values)) return()
-    sparkline(values, type = "line", minWidth = 70, height = 20)
+    sparkline(values, type = "line", minWidth = 40, height = 25)
   },
-  minWidth = 40)
+  minWidth = 130)
 )
 reactableSectorTable
 
 average_versus_differenceOfParties <- lm(averageBeta ~ differenceOfParties, data = sectorTable)  #Create a linear model
-coefficients(stdDev_versus_differenceOfParties) # as the difference between the average of the two parties' betas grows, the std dev of the Beta in general grows, meaning that some sectors are much more risky depending on which party wins
+coefficients(average_versus_differenceOfParties) # as the difference between the average of the two parties' betas grows, the std dev of the Beta in general grows, meaning that some sectors are much more risky depending on which party wins
 residualPlots(average_versus_differenceOfParties)
 qqPlot(average_versus_differenceOfParties)
 
 ```
+
+**As we can see from the table, the Technology, Health Care, Real Estate, and Energy are the main industries largely affected by which candidate wins. Specifically the Technology and Health Care industries have a lot more market risk if a Republican candidate wins rather than a Democrat. The Real Estate and Energy industries have a lot more market risk if a Democrat candidate wins rather than a Republican.**
+
+**Let us go further into these five industries.**
 
 ```{r}
 # I begin to track 120 days during each election.
