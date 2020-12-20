@@ -598,13 +598,48 @@ qqPlot(average_versus_differenceOfParties)
 
 **As we can see from the table, the Technology, Health Care, Real Estate, and Energy are the main industries largely affected by which candidate wins. Specifically the Technology and Health Care industries have a lot more market risk if a Republican candidate wins rather than a Democrat. The Real Estate and Energy industries have a lot more market risk if a Democrat candidate wins rather than a Republican.**
 
-**Let us go further into these five industries.**
-
+**Let us go further into these five industries and introduct a different data set.**
 ```{r}
-# I begin to track 120 days during each election.
+options(dplyr.summarise.inform = FALSE)
 
+county <- read.csv("countypres_2000-2016.csv")
 
+updatedCountyData <- county %>%
+  group_by(year, state, party) %>%
+  summarize(partyTotalVotes = sum(candidatevotes)) %>%
+  na.omit() %>%
+  group_by(year, party) %>%
+  summarize(sumPerParty = sum(partyTotalVotes))
+updatedCountyData
 
+demData <- updatedCountyData %>%
+  filter(party == "democrat")
+demData
+
+repData <- updatedCountyData %>%
+  filter(party == "republican")
+repData
+
+diffPartyData <- repData$sumPerParty - demData$sumPerParty
+diffPartyData
+
+totVotesData <- county %>%
+  na.omit() %>%
+  group_by(year) %>%
+  summarize(totalvotesPerYear = sum(candidatevotes))
+totVotesData
+
+percentDiff <- 100*(diffPartyData / totVotesData$totalvotesPerYear)
+percentDiff
+
+```
+
+**Now that we know if a candidate won by a large majority, we can see if there is a relationship between a "land-slide" election versus the volatility of the five sectors that we have predicted to be politically significant. To do so, we can create a linear regression model between the sector beta that year, and the win differential (in percent) that year.**
+```{r}
+
+# Technology
+sectorBeta_versus_winPercent <- lm(values_technologyBeta ~ abs(percentDiff))
+summary(sectorBeta_versus_winPercent)
 ```
 
 ```{r}
