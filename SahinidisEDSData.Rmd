@@ -593,21 +593,22 @@ percentDiff <- 100*(diffPartyData / totVotesData$totalvotesPerYear) # calculates
 
 ```
 
-**Now that we know if a candidate receieved a larger or smaller margin of the public vote, we can see if there is a relationship between a "land-slide" election versus the volatility of the five sectors that we have predicted to be politically significant. To do so, we can create a linear regression model between the sector beta that year, and the win differential (in percent) that year.**
+**Now that we know if a candidate received a larger or smaller margin of the public vote, we can see if there is a relationship between a "landslide" election versus the volatility of the five sectors that we have predicted to be politically significant. To do so, we can create a linear regression model between the sector beta that year, and the win differential (in percent) that year.**
 ```{r}
 
 # Technology
 technologyBeta_versus_winPercent <- lm(values_technologyBeta ~ percentDiff)
 technologyLandslideData <- data.frame(percentDiff, values_technologyBeta)
-ggplot(data = technologyLandslideData, aes(x = percentDiff, y = values_technologyBeta)) +
+technologyLandslideDataPlot <- ggplot(data = technologyLandslideData, aes(x = percentDiff, y = values_technologyBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of technology sector versus % won (or lost) by a Republican candidate")
 
 
+
 healthCareBeta_versus_winPercent <- lm(values_healthCareBeta ~ percentDiff)
 healthCareLandslideData <- data.frame(percentDiff, values_healthCareBeta)
-ggplot(data = healthCareLandslideData, aes(x = percentDiff, y = values_healthCareBeta)) +
+healthCareLandslideDataPlot <- ggplot(data = healthCareLandslideData, aes(x = percentDiff, y = values_healthCareBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of health care sector versus % won (or lost) by a Republican candidate")
@@ -615,7 +616,7 @@ ggplot(data = healthCareLandslideData, aes(x = percentDiff, y = values_healthCar
 
 realEstateBeta_versus_winPercent <- lm(values_realEstateBeta ~ percentDiff)
 realEstateLandslideData <- data.frame(percentDiff, values_realEstateBeta)
-ggplot(data = realEstateLandslideData, aes(x = percentDiff, y = values_realEstateBeta)) +
+realEstateLandslideDataPlot <- ggplot(data = realEstateLandslideData, aes(x = percentDiff, y = values_realEstateBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of real estate sector versus % won (or lost) by a Republican candidate")
@@ -623,24 +624,24 @@ ggplot(data = realEstateLandslideData, aes(x = percentDiff, y = values_realEstat
 
 energyBeta_versus_winPercent <- lm(values_energyBeta ~ percentDiff)
 energyLandslideData <- data.frame(percentDiff, values_energyBeta)
-ggplot(data = energyLandslideData, aes(x = percentDiff, y = values_energyBeta)) +
+energyLandslideDataPlot <- ggplot(data = energyLandslideData, aes(x = percentDiff, y = values_energyBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of energy sector versus % won (or lost) by a Republican candidate")
-
+energyBeta_versus_winPercent
 
 consumerGoodsBeta_versus_winPercent <- lm(values_consumerGoodsBeta ~ percentDiff)
 consumerGoodsLandslideData <- data.frame(percentDiff, values_consumerGoodsBeta)
-ggplot(data = consumerGoodsLandslideData, aes(x = percentDiff, y = values_consumerGoodsBeta)) +
+consumerGoodsLandslideDataPlot <- ggplot(data = consumerGoodsLandslideData, aes(x = percentDiff, y = values_consumerGoodsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of consumer goods sector versus % won (or lost) by a Republican candidate")
-
+consumerGoodsBeta_versus_winPercent
 
 
 telecommunicationsBeta_versus_winPercent <- lm(values_telecommunicationsBeta ~ percentDiff)
 telecommunicationsLandslideData <- data.frame(percentDiff, values_telecommunicationsBeta)
-ggplot(data = telecommunicationsLandslideData, aes(x = percentDiff, y = values_telecommunicationsBeta)) +
+telecommunicationsLandslideDataPlot <- ggplot(data = telecommunicationsLandslideData, aes(x = percentDiff, y = values_telecommunicationsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of telecommunications sector versus % won (or lost) by a Republican candidate")
@@ -649,7 +650,7 @@ ggplot(data = telecommunicationsLandslideData, aes(x = percentDiff, y = values_t
 
 utilitiesBeta_versus_winPercent <- lm(values_utilitiesBeta ~ percentDiff)
 utilitiesLandslideData <- data.frame(percentDiff, values_utilitiesBeta)
-ggplot(data = utilitiesLandslideData, aes(x = percentDiff, y = values_utilitiesBeta)) +
+utilitiesLandslideDataPlot <- ggplot(data = utilitiesLandslideData, aes(x = percentDiff, y = values_utilitiesBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of utilities sector versus % won (or lost) by a Republican candidate")
@@ -657,7 +658,7 @@ ggplot(data = utilitiesLandslideData, aes(x = percentDiff, y = values_utilitiesB
 
 industrialBeta_versus_winPercent <- lm(values_industrialBeta ~ percentDiff)
 industrialLandslideData <- data.frame(percentDiff, values_industrialBeta)
-ggplot(data = industrialLandslideData, aes(x = percentDiff, y = values_industrialBeta)) +
+industrialLandslideDataPlot <- ggplot(data = industrialLandslideData, aes(x = percentDiff, y = values_industrialBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of industrial sector versus % won (or lost) by a Republican candidate")
@@ -665,7 +666,7 @@ ggplot(data = industrialLandslideData, aes(x = percentDiff, y = values_industria
 
 financialBeta_versus_winPercent <- lm(values_financialBeta ~ percentDiff)
 financialLandslideData <- data.frame(percentDiff, values_financialBeta)
-ggplot(data = financialLandslideData, aes(x = percentDiff, y = values_financialBeta)) +
+financialLandslideDataPlot <- ggplot(data = financialLandslideData, aes(x = percentDiff, y = values_financialBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of financial sector versus % won (or lost) by a Republican candidate")
@@ -673,7 +674,7 @@ ggplot(data = financialLandslideData, aes(x = percentDiff, y = values_financialB
 
 consumerDiscretionaryBeta_versus_winPercent <- lm(values_consumerDiscretionaryBeta ~ abs(percentDiff))
 consumerDiscretionaryLandslideData <- data.frame(percentDiff, values_consumerDiscretionaryBeta)
-ggplot(data = consumerDiscretionaryLandslideData, aes(x = percentDiff, y = values_consumerDiscretionaryBeta)) +
+consumerDiscretionaryLandslideDataPlot <- ggplot(data = consumerDiscretionaryLandslideData, aes(x = percentDiff, y = values_consumerDiscretionaryBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of consumer discretionary sector versus % won (or lost) by a Republican candidate")
@@ -681,15 +682,53 @@ ggplot(data = consumerDiscretionaryLandslideData, aes(x = percentDiff, y = value
 
 materialsBeta_versus_winPercent <- lm(values_materialsBeta ~ percentDiff)
 materialsLandslideData <- data.frame(percentDiff, values_materialsBeta)
-ggplot(data = materialsLandslideData, aes(x = percentDiff, y = values_materialsBeta)) +
+materialsLandslideDataPlot <- ggplot(data = materialsLandslideData, aes(x = percentDiff, y = values_materialsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of materials sector versus % won (or lost) by a Republican candidate")
 
+coefficients(consumerGoodsBeta_versus_winPercent)
+
+landslideDataIntercepts <- c(
+coefficients(consumerGoodsBeta_versus_winPercent)[1],
+coefficients(realEstateBeta_versus_winPercent)[1],
+coefficients(telecommunicationsBeta_versus_winPercent)[1],
+coefficients(utilitiesBeta_versus_winPercent)[1],
+coefficients(technologyBeta_versus_winPercent)[1],
+coefficients(industrialBeta_versus_winPercent)[1],
+coefficients(financialBeta_versus_winPercent)[1],
+coefficients(energyBeta_versus_winPercent)[1],
+coefficients(consumerDiscretionaryBeta_versus_winPercent)[1],
+coefficients(healthCareBeta_versus_winPercent)[1],
+coefficients(materialsBeta_versus_winPercent)[1]
+)
+
+landslideDataSlopes <- c(
+coefficients(consumerGoodsBeta_versus_winPercent)[2],
+coefficients(realEstateBeta_versus_winPercent)[2],
+coefficients(telecommunicationsBeta_versus_winPercent)[2],
+coefficients(utilitiesBeta_versus_winPercent)[2],
+coefficients(technologyBeta_versus_winPercent)[2],
+coefficients(industrialBeta_versus_winPercent)[2],
+coefficients(financialBeta_versus_winPercent)[2],
+coefficients(energyBeta_versus_winPercent)[2],
+coefficients(consumerDiscretionaryBeta_versus_winPercent)[2],
+coefficients(healthCareBeta_versus_winPercent)[2],
+coefficients(materialsBeta_versus_winPercent)[2]
+)
+
+landslideTable <- data.frame(sectors, landslideDataIntercepts, landslideDataSlopes)
+
+landslideTable
+
+energyLandslideDataPlot
+technologyLandslideDataPlot
+healthCareLandslideDataPlot
+realEstateLandslideDataPlot
 
 ```
 
-**We now can make a prediction about the market risk depending on the political party winner.
+**We now can make a prediction about the market risk depending on the political party winner. Now let us see how the market responds before and after the election. We will compute the beta values from 90 days before and then 30 days after each election.**
 ```{r}
 
 electionDates <- c("2000-11-7", "2004-11-2", "2008-11-4", "2012-11-6", "2016-11-8")
@@ -773,7 +812,7 @@ beta_materials2012_90 <- round((cov(materials2012$return[1:62], market2012$retur
 beta_materials2016_90 <- round((cov(materials2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
 
 
-######### Post elections $$$$$$$$$
+######### Post elections
 
 beta_consumerGoods2000_Post <- round((cov(consumerGoods2000$return[65:85], market2000$return[65:85]) / var(market2000$return[65:85])), 2)
 beta_consumerGoods2004_Post <- round((cov(consumerGoods2004$return[65:85], market2004$return[65:85]) / var(market2004$return[65:85])), 2)
@@ -842,201 +881,9 @@ beta_materials2004_Post <- round((cov(materials2004$return[65:85], market2004$re
 beta_materials2008_Post <- round((cov(materials2008$return[65:85], market2008$return[65:85]) / var(market2008$return[65:85])), 2)
 beta_materials2012_Post <- round((cov(materials2012$return[63:83], market2012$return[63:83]) / var(market2012$return[63:83])), 2)
 beta_materials2016_Post <- round((cov(materials2016$return[65:85], market2016$return[65:85]) / var(market2016$return[65:85])), 2)
-
-beta_materials2012_Post
-
 ```
 
-```{r}
-# Below is data for each market sector. I will write comments for only Consumer Goods (every other sector is identical with the exception of its name).
-
-# x-axis data.
-electionYears <- c("2000", "2004", "2008", "2012", "2016")
-
-# y-axis data for Consumer Goods.
-values_consumerGoodsBeta_90 <- c(beta_consumerGoods2000_90, beta_consumerGoods2004_90, beta_consumerGoods2008_90, beta_consumerGoods2012_90, beta_consumerGoods2016_90)
-
-# Turn x-axis and y-axis data into a data frame to use for ggplot2.
-betas_consumerGoods_90 <- data.frame(electionYears, values_consumerGoodsBeta_90)
-
-mid = 0 # Used to create multiple gradients in one plot. Since beta can be negative or positive, the a beta of 0 means no market risk whatsoever. Thus, the midpoint is 0.
-
-betasPlot_consumerGoods_90 <- ggplot(data = betas_consumerGoods_90, aes(x = electionYears, y = values_consumerGoodsBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_consumerGoodsBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") + # the gradient ranges from -2.5 to 2.5. Thus, -2.5 or 2.5 is pure red and anything in between is a mixture of green and red, depending on the value.
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") + # changed the y-axis label to 'Beta' with the addition of the actual Greek letter.
-  xlab("Election Year") + # changed the x-axis label to 'Election Year'.
-    labs(title = "Market risk of the consumer goods sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) + # changed title font size and made bold as well to stand out
-  theme_solarized() + # changed the theme of the entire plot to make it more appealing rather than just black and white.
-  theme(legend.position="none") # got rid of the legend because it is unnecessary.
-betasPlot_consumerGoods_90
-
-
-values_realEstateBeta_90 <- c(beta_realEstate2000_90, beta_realEstate2004_90, beta_realEstate2008_90, beta_realEstate2012_90, beta_realEstate2016_90)
-betas_realEstate_90 <- data.frame(electionYears, values_realEstateBeta_90)
-betasPlot_realEstate_90 <- ggplot(data = betas_realEstate_90, aes(x = electionYears, y = values_realEstateBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_realEstateBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the real estate sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_realEstate_90
-
-
-values_telecommunicationsBeta_90 <- c(beta_telecommunications2000_90, beta_telecommunications2004_90, beta_telecommunications2008_90, beta_telecommunications2012_90, beta_telecommunications2016_90)
-betas_telecommunications_90 <- data.frame(electionYears, values_telecommunicationsBeta_90)
-betasPlot_telecommunications_90 <- ggplot(data = betas_telecommunications_90, aes(x = electionYears, y = values_telecommunicationsBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_telecommunicationsBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the telecommunications sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_telecommunications_90
-
-
-values_utilitiesBeta_90 <- c(beta_utilities2000_90, beta_utilities2004_90, beta_utilities2008_90, beta_utilities2012_90, beta_utilities2016_90)
-betas_utilities_90 <- data.frame(electionYears, values_utilitiesBeta_90)
-betasPlot_utilities_90 <- ggplot(data = betas_utilities_90, aes(x = electionYears, y = values_utilitiesBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_utilitiesBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the utilities sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_utilities_90
-
-
-values_technologyBeta_90 <- c(beta_technology2000_90, beta_technology2004_90, beta_technology2008_90, beta_technology2012_90, beta_technology2016_90)
-betas_technology_90 <- data.frame(electionYears, values_technologyBeta_90)
-betasPlot_technology_90 <- ggplot(data = betas_technology_90, aes(x = electionYears, y = values_technologyBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_technologyBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the technology sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_technology_90
-
-
-values_industrialBeta_90 <- c(beta_industrial2000_90, beta_industrial2004_90, beta_industrial2008_90, beta_industrial2012_90, beta_industrial2016_90)
-betas_industrial_90 <- data.frame(electionYears, values_industrialBeta_90)
-betasPlot_industrial_90 <- ggplot(data = betas_industrial_90, aes(x = electionYears, y = values_industrialBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_industrialBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the industrial sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_industrial_90
-
-
-values_financialBeta_90 <- c(beta_financial2000_90, beta_financial2004_90, beta_financial2008_90, beta_financial2012_90, beta_financial2016_90)
-betas_financial_90 <- data.frame(electionYears, values_financialBeta_90)
-betasPlot_financial_90 <- ggplot(data = betas_financial_90, aes(x = electionYears, y = values_financialBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_financialBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the financial sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_financial_90
-
-
-values_energyBeta_90 <- c(beta_energy2000_90, beta_energy2004_90, beta_energy2008_90, beta_energy2012_90, beta_energy2016_90)
-betas_energy_90 <- data.frame(electionYears, values_energyBeta_90)
-betasPlot_energy_90 <- ggplot(data = betas_energy_90, aes(x = electionYears, y = values_energyBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_energyBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the energy sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_energy_90
-
-
-values_consumerDiscretionaryBeta_90 <- c(beta_consumerDiscretionary2000_90, beta_consumerDiscretionary2004_90, beta_consumerDiscretionary2008_90, beta_consumerDiscretionary2012_90, beta_consumerDiscretionary2016_90)
-betas_consumerDiscretionary_90 <- data.frame(electionYears, values_consumerDiscretionaryBeta_90)
-betasPlot_consumerDiscretionary_90 <- ggplot(data = betas_consumerDiscretionary_90, aes(x = electionYears, y = values_consumerDiscretionaryBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_consumerDiscretionaryBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the consumer discretionary sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_consumerDiscretionary_90
-
-
-values_healthCareBeta_90 <- c(beta_healthCare2000_90, beta_healthCare2004_90, beta_healthCare2008_90, beta_healthCare2012_90, beta_healthCare2016_90)
-betas_healthCare_90 <- data.frame(electionYears, values_healthCareBeta_90)
-betasPlot_healthCare_90 <- ggplot(data = betas_healthCare_90, aes(x = electionYears, y = values_healthCareBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_healthCareBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the health care sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_healthCare_90
-
-
-values_materialsBeta_90 <- c(beta_materials2000_90, beta_materials2004_90, beta_materials2008_90, beta_materials2012_90, beta_materials2016_90)
-betas_materials_90 <- data.frame(electionYears, values_materialsBeta_90)
-betasPlot_materials_90 <- ggplot(data = betas_materials_90, aes(x = electionYears, y = values_materialsBeta_90, group = 1)) +
-  geom_line(linetype = "dotted") + 
-  geom_point(aes(colour = values_materialsBeta_90), size = 4) +
-  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
-  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
-  ylab("Beta"~(beta)~"\n") +
-  xlab("Election Year") +
-    labs(title = "Market risk of the materials sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
-  theme(axis.title=element_text(size = 12, face = "bold")) +
-  theme_solarized() +
-  theme(legend.position="none")
-betasPlot_materials_90
-```
-
-
-
+**The following are graphs of the pre and post election betas**
 ```{r}
 # Post election beta graphs
 # Below is data for each market sector. I will write comments for only Consumer Goods (every other sector is identical with the exception of its name).
@@ -1237,7 +1084,6 @@ betasPlot_materials_Aggregate <- ggplot(data = betas_materials_Post, aes(x = ele
     theme_solarized() +
     theme(legend.position="none")
 betasPlot_materials_Aggregate
-
   
 ```
 
@@ -1264,7 +1110,6 @@ consumerGoodsDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_consumerG
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of consumer goods sector versus % won (or lost) by a Republican candidate")
-consumerGoodsDifOfPreAndPost_versus_winPercentPlot
 
 
 realEstateDifOfPreAndPost_versus_winPercent <- lm((values_realEstateBeta_Post - values_realEstateBeta_90) ~ percentDiff)
@@ -1282,7 +1127,6 @@ telecommunicationsDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_tele
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of telecommunications sector versus % won (or lost) by a Republican candidate")
-telecommunicationsDifOfPreAndPost_versus_winPercentPlot
 
 
 utilitiesDifOfPreAndPost_versus_winPercent <- lm((values_utilitiesBeta_Post - values_utilitiesBeta_90) ~ percentDiff)
@@ -1291,7 +1135,6 @@ utilitiesDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_utilitiesDifO
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of utilities sector versus % won (or lost) by a Republican candidate")
-utilitiesDifOfPreAndPost_versus_winPercentPlot
 
 
 technologyDifOfPreAndPost_versus_winPercent <- lm((values_technologyBeta_Post - values_technologyBeta_90) ~ percentDiff)
@@ -1309,7 +1152,6 @@ industrialDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_industrialDi
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of industrial sector versus % won (or lost) by a Republican candidate")
-industrialDifOfPreAndPost_versus_winPercentPlot
 
 
 
@@ -1319,7 +1161,6 @@ financialDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_financialDifO
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of financial sector versus % won (or lost) by a Republican candidate")
-financialDifOfPreAndPost_versus_winPercentPlot
 
 
 
@@ -1340,7 +1181,6 @@ consumerDiscretionaryDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_c
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of consumer discretionary sector versus % won (or lost) by a Republican candidate")
-consumerDiscretionaryDifOfPreAndPost_versus_winPercentPlot
 
 
 healthCareDifOfPreAndPost_versus_winPercent <- lm((values_healthCareBeta_Post - values_healthCareBeta_90) ~ percentDiff)
@@ -1358,25 +1198,33 @@ materialsDifOfPreAndPost_versus_winPercentPlot <- ggplot(data = df_materialsDifO
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
   ggtitle("Difference of beta pre and post election of materials sector versus % won (or lost) by a Republican candidate")
-materialsDifOfPreAndPost_versus_winPercentPlot
 
 ```
 
 
 ```{r}
-#Graphs
+#Market Return Graphs
+graphOfReturns2000 <- ggplot(data = market2000, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red") + geom_point()
+graphOfReturns2004 <- ggplot(data = market2004, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red") + geom_point()
+graphOfReturns2008 <- ggplot(data = market2008, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue") + geom_point()
+graphOfReturns2012 <- ggplot(data = market2012, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue") + geom_point()
+graphOfReturns2016 <- ggplot(data = market2016, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red") + geom_point()
+graphOfReturns2000
+graphOfReturns2004
+graphOfReturns2008
+graphOfReturns2012
+graphOfReturns2016
 
-#graphOfReturns2000 <- ggplot(data = market2000, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-#graphOfReturns2004 <- ggplot(data = market2004, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
-#graphOfReturns2008 <- ggplot(data = market2008, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-#graphOfReturns2012 <- ggplot(data = market2012, aes(x = date, y = return)) + geom_smooth(method=lm, color = "blue")
-#graphOfReturns2016 <- ggplot(data = market2016, aes(x = date, y = return)) + geom_smooth(method=lm, color = "red")
+```
+**We have finished our analysis. Let us assess the linear assumptions of our regression models for one last extensive effort. Although the number of datapoints in each of our regression models is limitied (most have just five), we can still ensure that given the data that we are examining we can make some valid assumptions about the market.**
+```{r}
+####
 
-#graphOfReturns2000
-#graphOfReturns2004
-#graphOfReturns2008
-#graphOfReturns2012
-#graphOfReturns2016
+####
+
+####
+
+####
 
 ```
 ```{r pressure, echo=FALSE}
