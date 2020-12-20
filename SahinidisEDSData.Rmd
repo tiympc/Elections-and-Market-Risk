@@ -450,49 +450,8 @@ reactable(
     colGroup(name = "Beta", columns = c("values_consumerGoodsBeta", "values_realEstateBeta", "values_telecommunicationsBeta", "values_utilitiesBeta", "values_technologyBeta", "values_industrialBeta", "values_financialBeta", "values_energyBeta", "values_consumerDiscretionaryBeta", "values_healthCareBeta", "values_materialsBeta")), colGroup(name = "Election Information", columns = c("electionYears", "winners"))))
 
 ```
-```{r}
-empty <- c("Year", "Winner", "Consumer Goods", "Real Estate", "Telecommunications", "Utilities", "Technology", "Industrial", "Financial", "Energy", "Consumer Discretionary", "Health Care", "Materials")
 
-column2000 <- c(electionYears[1], winners[1], beta_consumerGoods2000, beta_realEstate2000, beta_telecommunications2000, beta_utilities2000, beta_technology2000, beta_industrial2000, beta_financial2000, beta_energy2000, beta_consumerDiscretionary2000, beta_healthCare2000, beta_materials2000)
-column2004 <- c(electionYears[2], winners[2], beta_consumerGoods2004, beta_realEstate2004, beta_telecommunications2004, beta_utilities2004, beta_technology2004, beta_industrial2004, beta_financial2004, beta_energy2004, beta_consumerDiscretionary2004, beta_healthCare2004, beta_materials2004)
-column2008 <- c(electionYears[3], winners[3], beta_consumerGoods2008, beta_realEstate2008, beta_telecommunications2008, beta_utilities2008, beta_technology2008, beta_industrial2008, beta_financial2008, beta_energy2008, beta_consumerDiscretionary2008, beta_healthCare2008, beta_materials2008)
-column2012 <- c(electionYears[4], winners[4], beta_consumerGoods2012, beta_realEstate2012, beta_telecommunications2012, beta_utilities2012, beta_technology2012, beta_industrial2012, beta_financial2012, beta_energy2012, beta_consumerDiscretionary2012, beta_healthCare2012, beta_materials2012)
-column2016 <- c(electionYears[5], winners[5], beta_consumerGoods2016, beta_realEstate2016, beta_telecommunications2016, beta_utilities2016, beta_technology2016, beta_industrial2016, beta_financial2016, beta_energy2016, beta_consumerDiscretionary2016, beta_healthCare2016, beta_materials2016)
-
-betaTable2 <- data.frame(empty, column2000, column2004, column2008, column2012, column2016)
-
-options(reactable.theme = reactableTheme(
-  color = "#911225",
-  backgroundColor = "#74a4af",
-  borderColor = "hsl(233, 9%, 22%)",
-  stripedColor = "hsl(233, 12%, 22%)",
-  highlightColor = "hsl(233, 12%, 24%)",
-  cellPadding = "6px 14px",
-  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
-  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
-  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
-  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
-  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif", "font-size"="0.7em"),
-))
-
-reactableBetaTable2 <- reactable(
-  betaTable2[1:13, ],
-  defaultPageSize = 13,
-  bordered = FALSE,
-  resizable = TRUE,
-  wrap = TRUE,
-  fullWidth = TRUE,
-  defaultColDef = colDef(footer = function(values) {
-    if (!is.numeric(values)) return()
-    sparkline(values, type = "line", minWidth = 70, height = 20)
-  },
-  minWidth = 40)
-)
-
-reactableBetaTable2
-```
-
-**We made a table for each individual beta. It is now a good idea to make a table for some other information and make our analysis more extensive. Therefore, we will look into political parties more closely.**
+**We made a table for each individual beta. It is now a good idea to make a table for some other information and make our analysis more extensive. Therefore, we will look into political data more closely.**
 ```{r}
 
 sectors <- c("Consumer Goods", "Real Estate", "Telecommunications", "Utilities", "Technology", "Industrial", "Financial", "Energy", "Consumer Discretionary", "Health Care", "Materials")
@@ -589,7 +548,7 @@ reactableSectorTable <- reactable(
 )
 reactableSectorTable
 
-average_versus_differenceOfParties <- lm(averageBeta ~ differenceOfParties, data = sectorTable)  #Create a linear model
+average_versus_differenceOfParties <- lm(averageBeta ~ differenceOfParties, data = sectorTable)  #Creates a linear model
 coefficients(average_versus_differenceOfParties) # as the difference between the average of the two parties' betas grows, the std dev of the Beta in general grows, meaning that some sectors are much more risky depending on which party wins
 residualPlots(average_versus_differenceOfParties)
 qqPlot(average_versus_differenceOfParties)
@@ -598,12 +557,12 @@ qqPlot(average_versus_differenceOfParties)
 
 **As we can see from the table, the Technology, Health Care, Real Estate, and Energy are the main industries largely affected by which candidate wins. Specifically the Technology and Health Care industries have a lot more market risk if a Republican candidate wins rather than a Democrat. The Real Estate and Energy industries have a lot more market risk if a Democrat candidate wins rather than a Republican.**
 
-**Let us go further into these five industries and introduct a different data set.**
+**Let us go further into these five industries and introduce a different data set that examines how many votes were cast for each political party.**
 ```{r}
-options(dplyr.summarise.inform = FALSE)
-
+options(dplyr.summarise.inform = FALSE) # to get rid of a warning from group_by
+# county is a data set that includes information on each county's polls (such as how many votes were cast for each political candidate). We will use this information to see how many votes were cast for the Democratic and Republican party for 2000, 2004, 2008, 2012, and 2016. Finally, we will compare each election to see if a winner won by a large margin or not (landslide victory). 
 county <- read.csv("countypres_2000-2016.csv")
-
+county
 updatedCountyData <- county %>%
   group_by(year, state, party) %>%
   summarize(partyTotalVotes = sum(candidatevotes)) %>%
@@ -614,132 +573,114 @@ updatedCountyData
 
 demData <- updatedCountyData %>%
   filter(party == "democrat")
-demData
+demData # table that shows how many votes were cast for the Democratic party each year.
 
 repData <- updatedCountyData %>%
   filter(party == "republican")
-repData
+repData # table that shows how many votes were cast for the Republican party each year.
 
 diffPartyData <- repData$sumPerParty - demData$sumPerParty
-diffPartyData
+diffPartyData # table that shows how many more votes the Republican party received each year.
 
 totVotesData <- county %>%
   na.omit() %>%
+  filter(party != "green") %>% # to look at only Republican and Democratic votes
   group_by(year) %>%
   summarize(totalvotesPerYear = sum(candidatevotes))
-totVotesData
+totVotesData # table that shows the total amount of votes that were cast for a Democrat or Republican.
 
-percentDiff <- 100*(diffPartyData / totVotesData$totalvotesPerYear)
-percentDiff
+percentDiff <- 100*(diffPartyData / totVotesData$totalvotesPerYear) # calculates the percent margin of the election, such as in the 2000 presidential election, the Republican party received 0.2996683% less votes than the Democratic party.
 
 ```
 
-**Now that we know if a candidate won by a large majority, we can see if there is a relationship between a "land-slide" election versus the volatility of the five sectors that we have predicted to be politically significant. To do so, we can create a linear regression model between the sector beta that year, and the win differential (in percent) that year.**
+**Now that we know if a candidate receieved a larger or smaller margin of the public vote, we can see if there is a relationship between a "land-slide" election versus the volatility of the five sectors that we have predicted to be politically significant. To do so, we can create a linear regression model between the sector beta that year, and the win differential (in percent) that year.**
 ```{r}
 
 # Technology
 technologyBeta_versus_winPercent <- lm(values_technologyBeta ~ percentDiff)
 technologyLandslideData <- data.frame(percentDiff, values_technologyBeta)
-
-ggplot(data = landslideData, aes(x = percentDiff, y = values_technologyBeta)) +
+ggplot(data = technologyLandslideData, aes(x = percentDiff, y = values_technologyBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of technology sector versus % won (or lost) by a Republican candidate")
-######
+
 
 healthCareBeta_versus_winPercent <- lm(values_healthCareBeta ~ percentDiff)
 healthCareLandslideData <- data.frame(percentDiff, values_healthCareBeta)
-
-
-ggplot(data = landslideData, aes(x = percentDiff, y = values_healthCareBeta)) +
+ggplot(data = healthCareLandslideData, aes(x = percentDiff, y = values_healthCareBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of health care sector versus % won (or lost) by a Republican candidate")
 
-######
+
 realEstateBeta_versus_winPercent <- lm(values_realEstateBeta ~ percentDiff)
 realEstateLandslideData <- data.frame(percentDiff, values_realEstateBeta)
-
-ggplot(data = landslideData, aes(x = percentDiff, y = values_realEstateBeta)) +
+ggplot(data = realEstateLandslideData, aes(x = percentDiff, y = values_realEstateBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of real estate sector versus % won (or lost) by a Republican candidate")
 
-######
+
 energyBeta_versus_winPercent <- lm(values_energyBeta ~ percentDiff)
 energyLandslideData <- data.frame(percentDiff, values_energyBeta)
-
-
 ggplot(data = energyLandslideData, aes(x = percentDiff, y = values_energyBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of energy sector versus % won (or lost) by a Republican candidate")
 
-######
+
 consumerGoodsBeta_versus_winPercent <- lm(values_consumerGoodsBeta ~ percentDiff)
 consumerGoodsLandslideData <- data.frame(percentDiff, values_consumerGoodsBeta)
-
-
 ggplot(data = consumerGoodsLandslideData, aes(x = percentDiff, y = values_consumerGoodsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of consumer goods sector versus % won (or lost) by a Republican candidate")
 
-######
-######
+
+
 telecommunicationsBeta_versus_winPercent <- lm(values_telecommunicationsBeta ~ percentDiff)
 telecommunicationsLandslideData <- data.frame(percentDiff, values_telecommunicationsBeta)
-
-
 ggplot(data = telecommunicationsLandslideData, aes(x = percentDiff, y = values_telecommunicationsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of telecommunications sector versus % won (or lost) by a Republican candidate")
 
-######
-######
+
+
 utilitiesBeta_versus_winPercent <- lm(values_utilitiesBeta ~ percentDiff)
 utilitiesLandslideData <- data.frame(percentDiff, values_utilitiesBeta)
-
-
 ggplot(data = utilitiesLandslideData, aes(x = percentDiff, y = values_utilitiesBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of utilities sector versus % won (or lost) by a Republican candidate")
-######
+
+
 industrialBeta_versus_winPercent <- lm(values_industrialBeta ~ percentDiff)
 industrialLandslideData <- data.frame(percentDiff, values_industrialBeta)
-
-
 ggplot(data = industrialLandslideData, aes(x = percentDiff, y = values_industrialBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of industrial sector versus % won (or lost) by a Republican candidate")
-######
+
+
 financialBeta_versus_winPercent <- lm(values_financialBeta ~ percentDiff)
 financialLandslideData <- data.frame(percentDiff, values_financialBeta)
-
-
 ggplot(data = financialLandslideData, aes(x = percentDiff, y = values_financialBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of financial sector versus % won (or lost) by a Republican candidate")
-######
+
+
 consumerDiscretionaryBeta_versus_winPercent <- lm(values_consumerDiscretionaryBeta ~ abs(percentDiff))
 consumerDiscretionaryLandslideData <- data.frame(percentDiff, values_consumerDiscretionaryBeta)
-
-
 ggplot(data = consumerDiscretionaryLandslideData, aes(x = percentDiff, y = values_consumerDiscretionaryBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
   ggtitle("Beta of consumer discretionary sector versus % won (or lost) by a Republican candidate")
 
-######
 
 materialsBeta_versus_winPercent <- lm(values_materialsBeta ~ percentDiff)
 materialsLandslideData <- data.frame(percentDiff, values_materialsBeta)
-
-
 ggplot(data = materialsLandslideData, aes(x = percentDiff, y = values_materialsBeta)) +
   geom_point() +
   geom_smooth(method = "lm") +
