@@ -691,8 +691,157 @@ ggplot(data = materialsLandslideData, aes(x = percentDiff, y = values_materialsB
 
 **We now can make a prediction about the market risk depending on the political party winner.
 ```{r}
-90 before, 30 after and compare beta and mean return for each, then compare to above
+
+electionDates <- c("2000-11-7", "2004-11-2", "2008-11-4", "2012-11-6", "2016-11-8")
+initData <- as.Date(electionDates) - 90 # this is the date that we will begin tracking the market (also the date that is 3 months before the election for that corresponding year). we will track for a month after the election date.
+postData <- as.Date(electionDates) + 30
+consumerGoods2000
+df <- data.frame(consumerGoods2000)
+dateShit <- as.integer(unlist(df[2]))
+dateShit
+dateShit <- as.numeric(dateShit)
+consumerGoods2000$return[1:64] # I was having a lot of trouble with the indeces. The date column is not a string and so I wasn't able to do which to find the index to go through. Thus, I hard coded the indeces by looking at the xlsx files.
+consumerGoods2004$return[1:64]
+consumerGoods2008$return[1:64]
+consumerGoods2012$return[1:62]
+consumerGoods2016$return[1:64]
+
+beta_consumerGoods2000_90 <- round((cov(consumerGoods2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_consumerGoods2004_90 <- round((cov(consumerGoods2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_consumerGoods2008_90 <- round((cov(consumerGoods2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_consumerGoods2012_90 <- round((cov(consumerGoods2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_consumerGoods2016_90 <- round((cov(consumerGoods2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_realEstate2000_90 <- round((cov(realEstate2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_realEstate2004_90 <- round((cov(realEstate2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_realEstate2008_90<- round((cov(realEstate2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_realEstate2012_90 <- round((cov(realEstate2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_realEstate2016_90 <- round((cov(realEstate2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_telecommunications2000_90 <- round((cov(telecommunications2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_telecommunications2004_90 <- round((cov(telecommunications2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_telecommunications2008_90 <- round((cov(telecommunications2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_telecommunications2012_90 <- round((cov(telecommunications2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_telecommunications2016_90 <- round((cov(telecommunications2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_utilities2000_90 <- round((cov(utilities2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_utilities2004_90 <- round((cov(utilities2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_utilities2008_90 <- round((cov(utilities2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_utilities2012_90 <- round((cov(utilities2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_utilities2016_90 <- round((cov(utilities2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_technology2000_90 <- round((cov(technology2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_technology2004_90 <- round((cov(technology2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_technology2008_90 <- round((cov(technology2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_technology2012_90 <- round((cov(technology2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_technology2016_90 <- round((cov(technology2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_industrial2000_90 <- round((cov(industrial2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_industrial2004_90 <- round((cov(industrial2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_industrial2008_90 <- round((cov(industrial2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_industrial2012_90 <- round((cov(industrial2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_industrial2016_90 <- round((cov(industrial2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_financial2000_90 <- round((cov(financial2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_financial2004_90 <- round((cov(financial2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_financial2008_90 <- round((cov(financial2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_financial2012_90 <- round((cov(financial2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_financial2016_90 <- round((cov(financial2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_energy2000_90 <- round((cov(energy2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_energy2004_90 <- round((cov(energy2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_energy2008_90 <- round((cov(energy2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_energy2012_90 <- round((cov(energy2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_energy2016_90 <- round((cov(energy2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_consumerDiscretionary2000_90 <- round((cov(consumerDiscretionary2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_consumerDiscretionary2004_90 <- round((cov(consumerDiscretionary2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_consumerDiscretionary2008_90 <- round((cov(consumerDiscretionary2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_consumerDiscretionary2012_90 <- round((cov(consumerDiscretionary2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_consumerDiscretionary2016_90 <- round((cov(consumerDiscretionary2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_healthCare2000_90 <- round((cov(healthCare2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_healthCare2004_90 <- round((cov(healthCare2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_healthCare2008_90 <- round((cov(healthCare2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_healthCare2012_90 <- round((cov(healthCare2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_healthCare2016_90 <- round((cov(healthCare2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+beta_materials2000_90 <- round((cov(materials2000$return[1:64], market2000$return[1:64]) / var(market2000$return[1:64])), 2)
+beta_materials2004_90 <- round((cov(materials2004$return[1:64], market2004$return[1:64]) / var(market2004$return[1:64])), 2)
+beta_materials2008_90 <- round((cov(materials2008$return[1:64], market2008$return[1:64]) / var(market2008$return[1:64])), 2)
+beta_materials2012_90 <- round((cov(materials2012$return[1:62], market2012$return[1:62]) / var(market2012$return[1:62])), 2)
+beta_materials2016_90 <- round((cov(materials2016$return[1:64], market2016$return[1:64]) / var(market2016$return[1:64])), 2)
+
+
+######### Post elections $$$$$$$$$
+
+beta_consumerGoods2000_Post <- round((cov(consumerGoods2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_consumerGoods2004_Post <- round((cov(consumerGoods2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_consumerGoods2008_Post <- round((cov(consumerGoods2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_consumerGoods2012_Post <- round((cov(consumerGoods2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_consumerGoods2016_Post <- round((cov(consumerGoods2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_realEstate2000_Post <- round((cov(realEstate2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_realEstate2004_Post <- round((cov(realEstate2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_realEstate2008_Post<- round((cov(realEstate2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_realEstate2012_Post <- round((cov(realEstate2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_realEstate2016_Post <- round((cov(realEstate2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_telecommunications2000_Post <- round((cov(telecommunications2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_telecommunications2004_Post <- round((cov(telecommunications2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_telecommunications2008_Post <- round((cov(telecommunications2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_telecommunications2012_Post <- round((cov(telecommunications2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_telecommunications2016_Post <- round((cov(telecommunications2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_utilities2000_Post <- round((cov(utilities2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_utilities2004_Post <- round((cov(utilities2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_utilities2008_Post <- round((cov(utilities2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_utilities2012_Post <- round((cov(utilities2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_utilities2016_Post <- round((cov(utilities2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_technology2000_Post <- round((cov(technology2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_technology2004_Post <- round((cov(technology2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_technology2008_Post <- round((cov(technology2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_technology2012_Post <- round((cov(technology2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_technology2016_Post <- round((cov(technology2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_industrial2000_Post <- round((cov(industrial2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_industrial2004_Post <- round((cov(industrial2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_industrial2008_Post <- round((cov(industrial2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_industrial2012_Post <- round((cov(industrial2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_industrial2016_Post <- round((cov(industrial2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_financial2000_Post <- round((cov(financial2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_financial2004_Post <- round((cov(financial2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_financial2008_Post <- round((cov(financial2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_financial2012_Post <- round((cov(financial2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_financial2016_Post <- round((cov(financial2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_energy2000_Post <- round((cov(energy2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_energy2004_Post <- round((cov(energy2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_energy2008_Post <- round((cov(energy2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_energy2012_Post <- round((cov(energy2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_energy2016_Post <- round((cov(energy2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_consumerDiscretionary2000_Post <- round((cov(consumerDiscretionary2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_consumerDiscretionary2004_Post <- round((cov(consumerDiscretionary2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_consumerDiscretionary2008_Post <- round((cov(consumerDiscretionary2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_consumerDiscretionary2012_Post <- round((cov(consumerDiscretionary2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_consumerDiscretionary2016_Post <- round((cov(consumerDiscretionary2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_healthCare2000_Post <- round((cov(healthCare2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_healthCare2004_Post <- round((cov(healthCare2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_healthCare2008_Post <- round((cov(healthCare2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_healthCare2012_Post <- round((cov(healthCare2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_healthCare2016_Post <- round((cov(healthCare2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
+
+beta_materials2000_Post <- round((cov(materials2000$return[65:86], market2000$return[65:86]) / var(market2000$return[65:86])), 2)
+beta_materials2004_Post <- round((cov(materials2004$return[65:86], market2004$return[65:86]) / var(market2004$return[65:86])), 2)
+beta_materials2008_Post <- round((cov(materials2008$return[65:86], market2008$return[65:86]) / var(market2008$return[65:86])), 2)
+beta_materials2012_Post <- round((cov(materials2012$return[63:84], market2012$return[63:84]) / var(market2012$return[63:84])), 2)
+beta_materials2016_Post <- round((cov(materials2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
 ```
+
 
 ```{r}
 #Graphs
