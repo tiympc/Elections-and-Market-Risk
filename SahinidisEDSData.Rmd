@@ -842,6 +842,385 @@ beta_materials2012_Post <- round((cov(materials2012$return[63:84], market2012$re
 beta_materials2016_Post <- round((cov(materials2016$return[65:86], market2016$return[65:86]) / var(market2016$return[65:86])), 2)
 ```
 
+```{r}
+# Below is data for each market sector. I will write comments for only Consumer Goods (every other sector is identical with the exception of its name).
+
+# x-axis data.
+electionYears <- c("2000", "2004", "2008", "2012", "2016")
+
+# y-axis data for Consumer Goods.
+values_consumerGoodsBeta_90 <- c(beta_consumerGoods2000_90, beta_consumerGoods2004_90, beta_consumerGoods2008_90, beta_consumerGoods2012_90, beta_consumerGoods2016_90)
+
+# Turn x-axis and y-axis data into a data frame to use for ggplot2.
+betas_consumerGoods_90 <- data.frame(electionYears, values_consumerGoodsBeta_90)
+
+mid = 0 # Used to create multiple gradients in one plot. Since beta can be negative or positive, the a beta of 0 means no market risk whatsoever. Thus, the midpoint is 0.
+
+betasPlot_consumerGoods_90 <- ggplot(data = betas_consumerGoods_90, aes(x = electionYears, y = values_consumerGoodsBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_consumerGoodsBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") + # the gradient ranges from -2.5 to 2.5. Thus, -2.5 or 2.5 is pure red and anything in between is a mixture of green and red, depending on the value.
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") + # changed the y-axis label to 'Beta' with the addition of the actual Greek letter.
+  xlab("Election Year") + # changed the x-axis label to 'Election Year'.
+    labs(title = "Market risk of the consumer goods sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) + # changed title font size and made bold as well to stand out
+  theme_solarized() + # changed the theme of the entire plot to make it more appealing rather than just black and white.
+  theme(legend.position="none") # got rid of the legend because it is unnecessary.
+betasPlot_consumerGoods_90
+
+
+values_realEstateBeta_90 <- c(beta_realEstate2000_90, beta_realEstate2004_90, beta_realEstate2008_90, beta_realEstate2012_90, beta_realEstate2016_90)
+betas_realEstate_90 <- data.frame(electionYears, values_realEstateBeta_90)
+betasPlot_realEstate_90 <- ggplot(data = betas_realEstate_90, aes(x = electionYears, y = values_realEstateBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_realEstateBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the real estate sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_realEstate_90
+
+
+values_telecommunicationsBeta_90 <- c(beta_telecommunications2000_90, beta_telecommunications2004_90, beta_telecommunications2008_90, beta_telecommunications2012_90, beta_telecommunications2016_90)
+betas_telecommunications_90 <- data.frame(electionYears, values_telecommunicationsBeta_90)
+betasPlot_telecommunications_90 <- ggplot(data = betas_telecommunications_90, aes(x = electionYears, y = values_telecommunicationsBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_telecommunicationsBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the telecommunications sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_telecommunications_90
+
+
+values_utilitiesBeta_90 <- c(beta_utilities2000_90, beta_utilities2004_90, beta_utilities2008_90, beta_utilities2012_90, beta_utilities2016_90)
+betas_utilities_90 <- data.frame(electionYears, values_utilitiesBeta_90)
+betasPlot_utilities_90 <- ggplot(data = betas_utilities_90, aes(x = electionYears, y = values_utilitiesBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_utilitiesBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the utilities sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_utilities_90
+
+
+values_technologyBeta_90 <- c(beta_technology2000_90, beta_technology2004_90, beta_technology2008_90, beta_technology2012_90, beta_technology2016_90)
+betas_technology_90 <- data.frame(electionYears, values_technologyBeta_90)
+betasPlot_technology_90 <- ggplot(data = betas_technology_90, aes(x = electionYears, y = values_technologyBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_technologyBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the technology sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_technology_90
+
+
+values_industrialBeta_90 <- c(beta_industrial2000_90, beta_industrial2004_90, beta_industrial2008_90, beta_industrial2012_90, beta_industrial2016_90)
+betas_industrial_90 <- data.frame(electionYears, values_industrialBeta_90)
+betasPlot_industrial_90 <- ggplot(data = betas_industrial_90, aes(x = electionYears, y = values_industrialBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_industrialBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the industrial sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_industrial_90
+
+
+values_financialBeta_90 <- c(beta_financial2000_90, beta_financial2004_90, beta_financial2008_90, beta_financial2012_90, beta_financial2016_90)
+betas_financial_90 <- data.frame(electionYears, values_financialBeta_90)
+betasPlot_financial_90 <- ggplot(data = betas_financial_90, aes(x = electionYears, y = values_financialBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_financialBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the financial sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_financial_90
+
+
+values_energyBeta_90 <- c(beta_energy2000_90, beta_energy2004_90, beta_energy2008_90, beta_energy2012_90, beta_energy2016_90)
+betas_energy_90 <- data.frame(electionYears, values_energyBeta_90)
+betasPlot_energy_90 <- ggplot(data = betas_energy_90, aes(x = electionYears, y = values_energyBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_energyBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the energy sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_energy_90
+
+
+values_consumerDiscretionaryBeta_90 <- c(beta_consumerDiscretionary2000_90, beta_consumerDiscretionary2004_90, beta_consumerDiscretionary2008_90, beta_consumerDiscretionary2012_90, beta_consumerDiscretionary2016_90)
+betas_consumerDiscretionary_90 <- data.frame(electionYears, values_consumerDiscretionaryBeta_90)
+betasPlot_consumerDiscretionary_90 <- ggplot(data = betas_consumerDiscretionary_90, aes(x = electionYears, y = values_consumerDiscretionaryBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_consumerDiscretionaryBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the consumer discretionary sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_consumerDiscretionary_90
+
+
+values_healthCareBeta_90 <- c(beta_healthCare2000_90, beta_healthCare2004_90, beta_healthCare2008_90, beta_healthCare2012_90, beta_healthCare2016_90)
+betas_healthCare_90 <- data.frame(electionYears, values_healthCareBeta_90)
+betasPlot_healthCare_90 <- ggplot(data = betas_healthCare_90, aes(x = electionYears, y = values_healthCareBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_healthCareBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the health care sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_healthCare_90
+
+
+values_materialsBeta_90 <- c(beta_materials2000_90, beta_materials2004_90, beta_materials2008_90, beta_materials2012_90, beta_materials2016_90)
+betas_materials_90 <- data.frame(electionYears, values_materialsBeta_90)
+betasPlot_materials_90 <- ggplot(data = betas_materials_90, aes(x = electionYears, y = values_materialsBeta_90, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_materialsBeta_90), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the materials sector, as represented by Beta", subtitle = "(tracked 90 days before each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_materials_90
+```
+
+```{r}
+# Post election beta graphs
+# Below is data for each market sector. I will write comments for only Consumer Goods (every other sector is identical with the exception of its name).
+
+# x-axis data.
+electionYears <- c("2000", "2004", "2008", "2012", "2016")
+
+# y-axis data for Consumer Goods.
+values_consumerGoodsBeta_Post <- c(beta_consumerGoods2000_Post, beta_consumerGoods2004_Post, beta_consumerGoods2008_Post, beta_consumerGoods2012_Post, beta_consumerGoods2016_Post)
+
+# Turn x-axis and y-axis data into a data frame to use for ggplot2.
+betas_consumerGoods_Post <- data.frame(electionYears, values_consumerGoodsBeta_Post)
+
+mid = 0 # Used to create multiple gradients in one plot. Since beta can be negative or positive, the a beta of 0 means no market risk whatsoever. Thus, the midpoint is 0.
+
+betasPlot_consumerGoods_Post <- ggplot(data = betas_consumerGoods_Post, aes(x = electionYears, y = values_consumerGoodsBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_consumerGoodsBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") + # the gradient ranges from -2.5 to 2.5. Thus, -2.5 or 2.5 is pure red and anything in between is a mixture of green and red, depending on the value.
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") + # changed the y-axis label to 'Beta' with the addition of the actual Greek letter.
+  xlab("Election Year") + # changed the x-axis label to 'Election Year'.
+    labs(title = "Market risk of the consumer goods sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) + # changed title font size and made bold as well to stand out
+  theme_solarized() + # changed the theme of the entire plot to make it more appealing rather than just black and white.
+  theme(legend.position="none") # got rid of the legend because it is unnecessary.
+betasPlot_consumerGoods_Post
+
+
+values_realEstateBeta_Post <- c(beta_realEstate2000_Post, beta_realEstate2004_Post, beta_realEstate2008_Post, beta_realEstate2012_Post, beta_realEstate2016_Post)
+betas_realEstate_Post <- data.frame(electionYears, values_realEstateBeta_Post)
+betasPlot_realEstate_Post <- ggplot(data = betas_realEstate_Post, aes(x = electionYears, y = values_realEstateBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_realEstateBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the real estate sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_realEstate_Post
+
+
+values_telecommunicationsBeta_Post <- c(beta_telecommunications2000_Post, beta_telecommunications2004_Post, beta_telecommunications2008_Post, beta_telecommunications2012_Post, beta_telecommunications2016_Post)
+betas_telecommunications_Post <- data.frame(electionYears, values_telecommunicationsBeta_Post)
+betasPlot_telecommunications_Post <- ggplot(data = betas_telecommunications_Post, aes(x = electionYears, y = values_telecommunicationsBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_telecommunicationsBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the telecommunications sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_telecommunications_Post
+
+
+values_utilitiesBeta_Post <- c(beta_utilities2000_Post, beta_utilities2004_Post, beta_utilities2008_Post, beta_utilities2012_Post, beta_utilities2016_Post)
+betas_utilities_Post <- data.frame(electionYears, values_utilitiesBeta_Post)
+betasPlot_utilities_Post <- ggplot(data = betas_utilities_Post, aes(x = electionYears, y = values_utilitiesBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_utilitiesBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the utilities sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_utilities_Post
+
+
+values_technologyBeta_Post <- c(beta_technology2000_Post, beta_technology2004_Post, beta_technology2008_Post, beta_technology2012_Post, beta_technology2016_Post)
+betas_technology_Post <- data.frame(electionYears, values_technologyBeta_Post)
+betasPlot_technology_Post <- ggplot(data = betas_technology_Post, aes(x = electionYears, y = values_technologyBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_technologyBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the technology sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_technology_Post
+
+
+values_industrialBeta_Post <- c(beta_industrial2000_Post, beta_industrial2004_Post, beta_industrial2008_Post, beta_industrial2012_Post, beta_industrial2016_Post)
+betas_industrial_Post <- data.frame(electionYears, values_industrialBeta_Post)
+betasPlot_industrial_Post <- ggplot(data = betas_industrial_Post, aes(x = electionYears, y = values_industrialBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_industrialBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the industrial sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_industrial_Post
+
+
+values_financialBeta_Post <- c(beta_financial2000_Post, beta_financial2004_Post, beta_financial2008_Post, beta_financial2012_Post, beta_financial2016_Post)
+betas_financial_Post <- data.frame(electionYears, values_financialBeta_Post)
+betasPlot_financial_Post <- ggplot(data = betas_financial_Post, aes(x = electionYears, y = values_financialBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_financialBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the financial sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_financial_Post
+
+
+values_energyBeta_Post <- c(beta_energy2000_Post, beta_energy2004_Post, beta_energy2008_Post, beta_energy2012_Post, beta_energy2016_Post)
+betas_energy_Post <- data.frame(electionYears, values_energyBeta_Post)
+betasPlot_energy_Post <- ggplot(data = betas_energy_Post, aes(x = electionYears, y = values_energyBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_energyBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the energy sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_energy_Post
+
+
+values_consumerDiscretionaryBeta_Post <- c(beta_consumerDiscretionary2000_Post, beta_consumerDiscretionary2004_Post, beta_consumerDiscretionary2008_Post, beta_consumerDiscretionary2012_Post, beta_consumerDiscretionary2016_Post)
+betas_consumerDiscretionary_Post <- data.frame(electionYears, values_consumerDiscretionaryBeta_Post)
+betasPlot_consumerDiscretionary_Post <- ggplot(data = betas_consumerDiscretionary_Post, aes(x = electionYears, y = values_consumerDiscretionaryBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_consumerDiscretionaryBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the consumer discretionary sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_consumerDiscretionary_Post
+
+
+values_healthCareBeta_Post <- c(beta_healthCare2000_Post, beta_healthCare2004_Post, beta_healthCare2008_Post, beta_healthCare2012_Post, beta_healthCare2016_Post)
+betas_healthCare_Post <- data.frame(electionYears, values_healthCareBeta_Post)
+betasPlot_healthCare_Post <- ggplot(data = betas_healthCare_Post, aes(x = electionYears, y = values_healthCareBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_healthCareBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the health care sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_healthCare_Post
+
+
+values_materialsBeta_Post <- c(beta_materials2000_Post, beta_materials2004_Post, beta_materials2008_Post, beta_materials2012_Post, beta_materials2016_Post)
+betas_materials_Post <- data.frame(electionYears, values_materialsBeta_Post)
+betasPlot_materials_Post <- ggplot(data = betas_materials_Post, aes(x = electionYears, y = values_materialsBeta_Post, group = 1)) +
+  geom_line(linetype = "dotted") + 
+  geom_point(aes(colour = values_materialsBeta_Post), size = 4) +
+  scale_color_gradient2(midpoint = mid, low="red", mid = "green", high="red", breaks=c(-2.5,0,2.5), labels=c("Market Risk (-2.5)","No Market Risk (0)","Market Risk (2.5)"), limits=c(-2.5,2.5), name = "") +
+  scale_y_continuous(limits=c(-2.5, 2.5)) + # to change y-axis range.
+  ylab("Beta"~(beta)~"\n") +
+  xlab("Election Year") +
+    labs(title = "Market risk of the materials sector, as represented by Beta", subtitle = "(tracked 30 days after each election)", caption = "\n\n21st century comparison, excl. 2020") +
+  theme(axis.title=element_text(size = 12, face = "bold")) +
+  theme_solarized() +
+  theme(legend.position="none")
+betasPlot_materials_Post
+
+```
+
+
 
 ```{r}
 #Graphs
