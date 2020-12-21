@@ -1285,15 +1285,104 @@ returnFigure
 
 
 ```
-**We have finished our analysis. Let us assess the linear assumptions of our regression models for one last extensive effort. Although the number of datapoints in each of our regression models is limitied (most have just five), we can still ensure that given the data that we are examining we can make some valid assumptions about the market.**
+**We have finished our analysis. Let us assess the linear assumptions of our regression models for one last extensive effort. Although the number of data points in each of our regression models is limited (most have just five), we can still ensure that given the data that we are examining we can make some valid assumptions about the market.**
 ```{r}
 ####
+technologyBeta_versus_winPercent <- lm(values_technologyBeta ~ percentDiff)
+technologyLandslideData <- data.frame(percentDiff, values_technologyBeta)
+technologyLandslideDataPlot <- ggplot(data = technologyLandslideData, aes(x = percentDiff, y = values_technologyBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of the technology sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+technologyBeta_versus_winPercent
+# Linearity Assumptions #
+technologyLandslideDataPlot
+residualPlots(technologyBeta_versus_winPercent)
+qqPlot(technologyBeta_versus_winPercent)
 
-####
+#########
+realEstateBeta_versus_winPercent <- lm(values_realEstateBeta ~ percentDiff)
+realEstateLandslideData <- data.frame(percentDiff, values_realEstateBeta)
+realEstateLandslideDataPlot <- ggplot(data = realEstateLandslideData, aes(x = percentDiff, y = values_realEstateBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of the real estate sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+realEstateBeta_versus_winPercent
+# Linearity Assumptions #
+realEstateLandslideDataPlot
+residualPlots(realEstateBeta_versus_winPercent)
+qqPlot(realEstateBeta_versus_winPercent)
 
-####
+#########
+energyBeta_versus_winPercent <- lm(values_energyBeta ~ percentDiff)
+energyLandslideData <- data.frame(percentDiff, values_energyBeta)
+energyLandslideDataPlot <- ggplot(data = energyLandslideData, aes(x = percentDiff, y = values_energyBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of the energy sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+energyBeta_versus_winPercent
+# Linearity Assumptions #
+energyLandslideDataPlot
+residualPlots(energyBeta_versus_winPercent)
+qqPlot(energyBeta_versus_winPercent)
 
-####
+#########
+healthCareBeta_versus_winPercent <- lm(values_healthCareBeta ~ percentDiff)
+healthCareLandslideData <- data.frame(percentDiff, values_healthCareBeta)
+healthCareLandslideDataPlot <- ggplot(data = healthCareLandslideData, aes(x = percentDiff, y = values_healthCareBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of the health care sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+healthCareBeta_versus_winPercent
+# Linearity Assumptions #
+healthCareLandslideDataPlot
+residualPlots(healthCareBeta_versus_winPercent)
+qqPlot(healthCareBeta_versus_winPercent)
+
+#########
+financialBeta_versus_winPercent <- lm(values_financialBeta ~ percentDiff)
+financialLandslideData <- data.frame(percentDiff, values_financialBeta)
+financialLandslideDataPlot <- ggplot(data = financialLandslideData, aes(x = percentDiff, y = values_financialBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of the financial sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+financialBeta_versus_winPercent
+# Linearity Assumptions #
+financialLandslideDataPlot
+residualPlots(financialBeta_versus_winPercent)
+qqPlot(financialBeta_versus_winPercent)
+
+materialsBeta_versus_winPercent <- lm(values_materialsBeta ~ percentDiff)
+materialsLandslideData <- data.frame(percentDiff, values_materialsBeta)
+materialsLandslideDataPlot <- ggplot(data = materialsLandslideData, aes(x = percentDiff, y = values_materialsBeta)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  ylab("Beta") +
+  xlab("Republican Margin of of Public Votes in Percentage") +
+  ggtitle("Beta of materials sector versus % won (or lost) by a Republican") +
+  theme_solarized()
+materialsBeta_versus_winPercent
+# Linearity Assumptions #
+materialsLandslideDataPlot
+residualPlots(materialsBeta_versus_winPercent)
+qqPlot(materialsBeta_versus_winPercent)
+
+
 
 ```
 ```{r pressure, echo=FALSE}
