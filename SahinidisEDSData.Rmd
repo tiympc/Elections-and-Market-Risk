@@ -10,7 +10,17 @@ knitr::opts_chunk$set(echo = TRUE)
 **Necessary libraries for the code in each chunk to run.**
 ```{r}
 
-setwd("/Users/alex/Desktop/fpeds_alex")
+install.packages("reactable")
+install.packages("tidyverse")
+install.packages("readxl")
+install.packages("ggplot2")
+install.packages("ggthemes")
+install.packages("gridExtra")
+install.packages("sparkline")
+install.packages("dplyr")
+install.packages("car")
+install.packages("ggpubr")
+
 library(reactable)
 library(tidyverse)
 library(readxl)
